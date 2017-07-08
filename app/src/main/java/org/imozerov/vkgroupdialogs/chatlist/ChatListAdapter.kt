@@ -59,7 +59,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
         fun bind(chat: Chat) {
             with(chat) {
-                itemView.chat_id.text  = chat.id.toString()
+                itemView.chat_name.text  = chat.id.toString()
                 itemView.setOnClickListener { chatClickCallback.onClick(chat) }
             }
         }

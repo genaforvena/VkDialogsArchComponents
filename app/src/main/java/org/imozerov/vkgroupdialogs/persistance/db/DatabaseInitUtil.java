@@ -15,7 +15,12 @@ class DatabaseInitUtil {
 
         ChatEntity chatEntity = new ChatEntity();
         chatEntity.setId(1);
+
+        ChatEntity chatEntity2 = new ChatEntity();
+        chatEntity2.setId(2);
+
         chats.add(chatEntity);
+        chats.add(chatEntity2);
 
         db.beginTransaction();
         try {
