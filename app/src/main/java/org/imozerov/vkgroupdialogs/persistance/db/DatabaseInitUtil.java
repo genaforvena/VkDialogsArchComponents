@@ -1,35 +1,35 @@
 package org.imozerov.vkgroupdialogs.persistance.db;
 
-import org.imozerov.vkgroupdialogs.persistance.db.entities.ChatEntity;
-import org.imozerov.vkgroupdialogs.persistance.db.entities.MessageEntity;
+import org.imozerov.vkgroupdialogs.vo.Chat;
+import org.imozerov.vkgroupdialogs.vo.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class DatabaseInitUtil {
     static void initializeDb(AppDatabase db) {
-        List<ChatEntity> chats = new ArrayList<>();
+        List<Chat> chats = new ArrayList<>();
 
-        ChatEntity chatEntity = new ChatEntity();
-        chatEntity.setId(1);
+        Chat chat = new Chat();
+        chat.setId(1);
 
-        ChatEntity chatEntity2 = new ChatEntity();
-        chatEntity2.setId(2);
+        Chat chat2 = new Chat();
+        chat2.setId(2);
 
-        ChatEntity chatEntity3 = new ChatEntity();
-        chatEntity3.setId(3);
+        Chat chat3 = new Chat();
+        chat3.setId(3);
 
-        ChatEntity chatEntity4 = new ChatEntity();
-        chatEntity4.setId(4);
+        Chat chat4 = new Chat();
+        chat4.setId(4);
 
-        chats.add(chatEntity);
-        chats.add(chatEntity2);
-        chats.add(chatEntity3);
-        chats.add(chatEntity4);
+        chats.add(chat);
+        chats.add(chat2);
+        chats.add(chat3);
+        chats.add(chat4);
 
-        List<MessageEntity> messages = new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
 
-        MessageEntity message = new MessageEntity();
+        Message message = new Message();
         message.setId(1);
         message.setChatId(4);
         message.setText("dfsdf");

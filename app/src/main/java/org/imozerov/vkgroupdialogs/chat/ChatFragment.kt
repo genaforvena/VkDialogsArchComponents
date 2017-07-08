@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.persistance.db.entities.MessageEntity
-import org.imozerov.vkgroupdialogs.persistance.model.Chat
+import org.imozerov.vkgroupdialogs.vo.Message
 import org.imozerov.vkgroupdialogs.viewmodel.ChatViewModel
+import org.imozerov.vkgroupdialogs.vo.Chat
 
 class ChatFragment : LifecycleFragment() {
 
@@ -44,7 +44,7 @@ class ChatFragment : LifecycleFragment() {
     }
 
     private fun subscribeUi(viewModel: ChatViewModel) {
-        viewModel.messages.observe(this, Observer<List<MessageEntity>> { messages ->
+        viewModel.messages().observe(this, Observer<List<Message>> { messages ->
             if (messages != null) {
                 adapter!!.setMessages(messages)
                 updateVisibility(isDataPresent = true)

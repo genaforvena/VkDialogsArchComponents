@@ -6,7 +6,7 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import org.imozerov.vkgroupdialogs.chat.ChatFragment
 import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
-import org.imozerov.vkgroupdialogs.persistance.model.Chat
+import org.imozerov.vkgroupdialogs.vo.Chat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

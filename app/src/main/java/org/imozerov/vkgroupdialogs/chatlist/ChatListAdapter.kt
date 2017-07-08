@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.persistance.model.Chat
+import org.imozerov.vkgroupdialogs.vo.Chat
 
 class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {

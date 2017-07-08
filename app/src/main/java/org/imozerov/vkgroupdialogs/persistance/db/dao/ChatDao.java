@@ -6,18 +6,18 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import org.imozerov.vkgroupdialogs.persistance.db.entities.ChatEntity;
+import org.imozerov.vkgroupdialogs.vo.Chat;
 
 import java.util.List;
 
 @Dao
 public interface ChatDao {
     @Query("SELECT * FROM chats")
-    LiveData<List<ChatEntity>> loadChats();
+    LiveData<List<Chat>> loadChats();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<ChatEntity> chats);
+    void insertAll(List<Chat> chats);
 
     @Query("SELECT * FROM chats where id = :chatId")
-    LiveData<ChatEntity> loadChat(int chatId);
+    LiveData<Chat> loadChat(int chatId);
 }
