@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.chatlist
+package org.imozerov.vkgroupdialogs.chat
 
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
@@ -7,21 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.persistance.model.Chat
+import org.imozerov.vkgroupdialogs.persistance.model.Message
 
-class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
-        RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
+/**
+ * Created by imozerov on 08/07/2017.
+ */
+class ChatAdapter() :
+        RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
-    internal var chats: List<Chat>? = null
+    internal var messages: List<Message>? = null
 
-    fun setChatList(newChatList: List<Chat>) {
-        if (chats == null) {
-            chats = newChatList
+    fun setMessages(newChatList: List<Message>) {
+        if (messages == null) {
+            messages = newChatList
             notifyItemRangeInserted(0, newChatList.size)
         } else {
             val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int {
-                    return this@ChatListAdapter.chats!!.size
+                    return this@ChatAdapter.messages!!.size
                 }
 
                 override fun getNewListSize(): Int {
@@ -29,7 +32,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
                 }
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return this@ChatListAdapter.chats!![oldItemPosition].id == newChatList[newItemPosition].id
+                    return this@ChatAdapter.messages!![oldItemPosition].id == newChatList[newItemPosition].id
                 }
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -38,34 +41,29 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
                     return product.id == old.id
                 }
             })
-            chats = newChatList
+            messages = newChatList
             result.dispatchUpdatesTo(this)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val binding = LayoutInflater.from(parent.context).inflate(R.layout.chat_list_item, parent, false)
-        return ChatViewHolder(binding, chatClickCallback)
+        return ChatViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        holder.bind(chats!![position])
+        holder.bind(messages!![position])
     }
 
     override fun getItemCount(): Int {
-        return if (chats == null) 0 else chats!!.size
+        return if (messages == null) 0 else messages!!.size
     }
 
-    class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
-        fun bind(chat: Chat) {
-            with(chat) {
-                itemView.chat_name.text  = chat.id.toString()
-                itemView.setOnClickListener { chatClickCallback.onClick(chat) }
+    class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(message: Message) {
+            with(message) {
+                itemView.chat_name.text  = message.id.toString()
             }
         }
     }
-}
-
-interface ChatClickCallback {
-    fun onClick(chat: Chat)
 }

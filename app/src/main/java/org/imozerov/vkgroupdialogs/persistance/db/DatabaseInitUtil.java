@@ -1,13 +1,10 @@
 package org.imozerov.vkgroupdialogs.persistance.db;
 
 import org.imozerov.vkgroupdialogs.persistance.db.entities.ChatEntity;
+import org.imozerov.vkgroupdialogs.persistance.db.entities.MessageEntity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by imozerov on 08/07/2017.
- */
 
 class DatabaseInitUtil {
     static void initializeDb(AppDatabase db) {
@@ -22,9 +19,19 @@ class DatabaseInitUtil {
         chats.add(chatEntity);
         chats.add(chatEntity2);
 
+        List<MessageEntity> messages = new ArrayList<>();
+
+        MessageEntity message = new MessageEntity();
+        message.setId(1);
+        message.setChatId(1);
+        message.setText("dfsdf");
+
+        messages.add(message);
+
         db.beginTransaction();
         try {
             db.chatDao().insertAll(chats);
+            db.messageDao().insertAll(messages);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
