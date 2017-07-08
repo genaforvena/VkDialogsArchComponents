@@ -1,7 +1,6 @@
 package org.imozerov.vkgroupdialogs.chat
 
 import android.arch.lifecycle.LifecycleFragment
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,15 +11,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.disposables.DisposableContainer
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
-import org.imozerov.vkgroupdialogs.viewmodel.ChatViewModel
 import org.imozerov.vkgroupdialogs.vo.Chat
-import org.imozerov.vkgroupdialogs.vo.Message
 import javax.inject.Inject
 
 class ChatFragment : LifecycleFragment(), Injectable {

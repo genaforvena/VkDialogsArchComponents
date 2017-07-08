@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.viewmodel
+package org.imozerov.vkgroupdialogs.chat
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

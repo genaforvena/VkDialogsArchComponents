@@ -6,6 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import org.imozerov.vkgroupdialogs.vo.Chat;
+import org.imozerov.vkgroupdialogs.vo.ChatUserRelation;
 
 import java.util.List;
 
@@ -21,4 +22,7 @@ public interface ChatDao {
 
     @Query("SELECT * FROM chats where id = :chatId")
     Flowable<Chat> loadChat(int chatId);
+
+    @Query("SELECT userId FROM chat_to_user where chatId = :chatId")
+    Flowable<List<Integer>> loadChatUserIds(int chatId);
 }

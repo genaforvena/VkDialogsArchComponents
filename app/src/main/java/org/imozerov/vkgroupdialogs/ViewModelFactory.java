@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.viewmodel;
+package org.imozerov.vkgroupdialogs;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

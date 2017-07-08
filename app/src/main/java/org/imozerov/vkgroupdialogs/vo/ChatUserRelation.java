@@ -3,7 +3,7 @@ package org.imozerov.vkgroupdialogs.vo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "chat-to-user")
+@Entity(tableName = "chat_to_user")
 public class ChatUserRelation {
     @PrimaryKey(autoGenerate = true)
     private int id;

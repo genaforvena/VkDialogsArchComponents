@@ -3,9 +3,9 @@ package org.imozerov.vkgroupdialogs.di;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
-import org.imozerov.vkgroupdialogs.viewmodel.ChatListViewModel;
-import org.imozerov.vkgroupdialogs.viewmodel.ChatViewModel;
-import org.imozerov.vkgroupdialogs.viewmodel.ViewModelFactory;
+import org.imozerov.vkgroupdialogs.chatlist.ChatListViewModel;
+import org.imozerov.vkgroupdialogs.chat.ChatViewModel;
+import org.imozerov.vkgroupdialogs.ViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;

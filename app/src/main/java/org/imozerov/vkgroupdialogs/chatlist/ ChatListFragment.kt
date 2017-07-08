@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
-import org.imozerov.vkgroupdialogs.viewmodel.ChatListViewModel
 import org.imozerov.vkgroupdialogs.vo.Chat
 import javax.inject.Inject
 
@@ -52,6 +52,7 @@ class ChatListFragment : LifecycleFragment(), Injectable {
 
         val chatsSubscription = viewModel?.chats!!
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     adapter!!.setChats(it)
                     updateVisibility(isDataPresent = true)

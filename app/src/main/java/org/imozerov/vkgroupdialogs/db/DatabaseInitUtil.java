@@ -6,8 +6,8 @@ import org.imozerov.vkgroupdialogs.vo.Message;
 import java.util.ArrayList;
 import java.util.List;
 
-class DatabaseInitUtil {
-    static void initializeDb(AppDatabase db) {
+public class DatabaseInitUtil {
+    public static void initializeDb(AppDatabase db) {
         List<Chat> chats = new ArrayList<>();
 
         Chat chat = new Chat();
