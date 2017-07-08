@@ -48,7 +48,7 @@ class ChatListFragment : LifecycleFragment() {
     private fun subscribeUi(viewModel: ChatListViewModel) {
         viewModel.chats.observe(this, Observer<List<ChatEntity>> { chats ->
             if (chats != null) {
-                adapter!!.setChatList(chats)
+                adapter!!.setChats(chats)
                 updateVisibility(isDataPresent = true)
             } else {
                 updateVisibility(isDataPresent = false)

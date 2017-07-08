@@ -12,9 +12,9 @@ import org.imozerov.vkgroupdialogs.persistance.model.Chat
 class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
 
-    internal var chats: List<Chat>? = null
+    private var chats: List<Chat>? = null
 
-    fun setChatList(newChatList: List<Chat>) {
+    fun setChats(newChatList: List<Chat>) {
         if (chats == null) {
             chats = newChatList
             notifyItemRangeInserted(0, newChatList.size)
@@ -52,9 +52,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         holder.bind(chats!![position])
     }
 
-    override fun getItemCount(): Int {
-        return if (chats == null) 0 else chats!!.size
-    }
+    override fun getItemCount() = if (chats == null) 0 else chats!!.size
 
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
         fun bind(chat: Chat) {
