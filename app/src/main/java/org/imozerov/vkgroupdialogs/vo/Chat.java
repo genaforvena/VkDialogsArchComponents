@@ -7,7 +7,6 @@ import android.arch.persistence.room.PrimaryKey;
 public class Chat {
     @PrimaryKey
     private int id;
-
     private String name;
     private String photo50;
     private String photo100;

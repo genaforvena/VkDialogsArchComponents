@@ -10,6 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.internal.disposables.DisposableContainer
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
@@ -22,9 +27,12 @@ class ChatFragment : LifecycleFragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    private val disposable: CompositeDisposable = CompositeDisposable()
     private var adapter: ChatAdapter? = null
     private var chatList: RecyclerView? = null
     private var loadingView: TextView? = null
+
+    private var viewModel: ChatViewModel? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,16 +49,29 @@ class ChatFragment : LifecycleFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
 
-        viewModel.messages(arguments.getInt(KEY_CHAT_ID)).observe(this, Observer<List<Message>> { messages ->
-            if (messages != null) {
-                adapter!!.setMessages(messages)
-                updateVisibility(isDataPresent = true)
-            } else {
-                updateVisibility(isDataPresent = false)
-            }
-        })
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val messagesSubscription =
+                viewModel
+                        ?.messages(arguments.getInt(KEY_CHAT_ID))!!
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            adapter!!.setMessages(it)
+                            updateVisibility(isDataPresent = true)
+                        }
+
+        disposable.add(messagesSubscription)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        disposable.clear()
     }
 
     private fun updateVisibility(isDataPresent: Boolean) {

@@ -29,9 +29,12 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + rootProject.supportLibVersion
     compile 'android.arch.lifecycle:extensions:' + rootProject.archLifecycleVersion
     compile 'android.arch.persistence.room:runtime:' + rootProject.archRoomVersion
+    compile 'android.arch.persistence.room:rxjava2:' + rootProject.archRoomVersion
     compile 'com.google.dagger:dagger:' + rootProject.daggerVersion
     compile 'com.google.dagger:dagger-android:' + rootProject.daggerVersion
     compile 'com.google.dagger:dagger-android-support:' + rootProject.daggerVersion
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
 
     annotationProcessor "android.arch.lifecycle:compiler:" + rootProject.archLifecycleVersion
     annotationProcessor "android.arch.persistence.room:compiler:" + rootProject.archRoomVersion

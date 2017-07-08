@@ -17,6 +17,7 @@ public class Message {
     private int id;
     private String text;
     private int chatId;
+    private int senderId;
 
     public int getId() {
         return id;
@@ -40,5 +41,13 @@ public class Message {
 
     public void setChatId(int chatId) {
         this.chatId = chatId;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
     }
 }
