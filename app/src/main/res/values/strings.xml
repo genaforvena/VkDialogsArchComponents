@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Vk Group Dialogs</string>
-    <string name="action_settings">Settings</string>
+    <string name="loading_chats">Загружаем беседы...</string>
 </resources>

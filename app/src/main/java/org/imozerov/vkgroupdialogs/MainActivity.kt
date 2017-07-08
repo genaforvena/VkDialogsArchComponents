@@ -1,21 +1,32 @@
 package org.imozerov.vkgroupdialogs
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
-
 import kotlinx.android.synthetic.main.activity_main.*
+import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
+import org.imozerov.vkgroupdialogs.persistance.model.Chat
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        if (savedInstanceState == null) {
+            val chatListFragment = ChatListFragment()
+
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, chatListFragment, ChatListFragment.TAG)
+                    .commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         return false
+    }
+
+    fun show(chat: Chat) {
+
     }
 }
