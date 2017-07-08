@@ -1,28 +1,28 @@
 package org.imozerov.vkgroupdialogs.chatlist
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleFragment
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+import android.arch.lifecycle.*
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
-import org.imozerov.vkgroupdialogs.MainActivity
+import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.di.Injectable
 import org.imozerov.vkgroupdialogs.viewmodel.ChatListViewModel
+import org.imozerov.vkgroupdialogs.vo.Chat
+import javax.inject.Inject
 
-/**
- * Fragment that displays chat list.
- */
-class ChatListFragment : LifecycleFragment() {
+class ChatListFragment : LifecycleFragment(), Injectable {
+    @Inject
+    lateinit var navigator: Navigator
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    var adapter: ChatListAdapter? = null
-    var chatList: RecyclerView? = null
-    var loadingView: View? = null
+    private var adapter: ChatListAdapter? = null
+    private var chatList: RecyclerView? = null
+    private var loadingView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,7 +39,7 @@ class ChatListFragment : LifecycleFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(this).get(ChatListViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatListViewModel::class.java)
 
         subscribeUi(viewModel)
     }
@@ -68,7 +68,7 @@ class ChatListFragment : LifecycleFragment() {
     private val onChatClickCallback = object : ChatClickCallback {
         override fun onClick(chat: Chat) {
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                (activity as MainActivity).show(chat)
+                navigator.navigateToChat(chat)
             }
         }
     }

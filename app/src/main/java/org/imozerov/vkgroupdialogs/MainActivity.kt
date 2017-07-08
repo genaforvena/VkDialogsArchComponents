@@ -1,25 +1,33 @@
 package org.imozerov.vkgroupdialogs
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LifecycleRegistry
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
-import org.imozerov.vkgroupdialogs.chat.ChatFragment
-import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
-import org.imozerov.vkgroupdialogs.vo.Chat
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInjector {
+    private val lifecycleRegistry = LifecycleRegistry(this)
+
+    override fun getLifecycle() = lifecycleRegistry
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject
+    lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         if (savedInstanceState == null) {
-            val chatListFragment = ChatListFragment()
-
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, chatListFragment, ChatListFragment.TAG)
-                    .commit()
+            navigator.navigateToChatList()
         }
     }
 
@@ -27,14 +35,7 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
-    fun show(chat: Chat) {
-        val chatFragment = ChatFragment.forChat(chat)
-
-        supportFragmentManager
-                .beginTransaction()
-                .addToBackStack("chat")
-                .replace(R.id.fragment_container,
-                        chatFragment, null).commit()
+    override fun supportFragmentInjector(): DispatchingAndroidInjector<Fragment> {
+        return dispatchingAndroidInjector
     }
-
 }

@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.persistance.db;
+package org.imozerov.vkgroupdialogs.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -10,7 +10,7 @@ import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import static org.imozerov.vkgroupdialogs.persistance.db.AppDatabase.DATABASE_NAME;
+import static org.imozerov.vkgroupdialogs.db.AppDatabase.DATABASE_NAME;
 
 public class DatabaseCreator {
 

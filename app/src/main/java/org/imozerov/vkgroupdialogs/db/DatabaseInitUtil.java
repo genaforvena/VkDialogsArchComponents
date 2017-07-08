@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.persistance.db;
+package org.imozerov.vkgroupdialogs.db;
 
 import org.imozerov.vkgroupdialogs.vo.Chat;
 import org.imozerov.vkgroupdialogs.vo.Message;

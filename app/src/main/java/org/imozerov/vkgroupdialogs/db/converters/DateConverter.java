@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.persistance.db.converters;
+package org.imozerov.vkgroupdialogs.db.converters;
 
 import android.arch.persistence.room.TypeConverter;
 

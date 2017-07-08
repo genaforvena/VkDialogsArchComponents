@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.persistance.db.dao;
+package org.imozerov.vkgroupdialogs.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

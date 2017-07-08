@@ -1,14 +1,16 @@
-package org.imozerov.vkgroupdialogs.persistance.repository
+package org.imozerov.vkgroupdialogs.repository
 
 import android.app.Application
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
-import org.imozerov.vkgroupdialogs.persistance.db.DatabaseCreator
+import org.imozerov.vkgroupdialogs.db.DatabaseCreator
 import org.imozerov.vkgroupdialogs.vo.Chat
 import org.imozerov.vkgroupdialogs.vo.Message
+import javax.inject.Inject
 
-class ChatRepository(application: Application) {
+class ChatRepository @Inject
+constructor(application: Application) {
     private val databaseCreator = DatabaseCreator.getInstance(application)
 
     init {

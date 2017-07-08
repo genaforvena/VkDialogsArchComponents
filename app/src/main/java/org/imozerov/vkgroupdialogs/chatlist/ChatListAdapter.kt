@@ -11,7 +11,6 @@ import org.imozerov.vkgroupdialogs.vo.Chat
 
 class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
-
     private var chats: List<Chat>? = null
 
     fun setChats(newChatList: List<Chat>) {

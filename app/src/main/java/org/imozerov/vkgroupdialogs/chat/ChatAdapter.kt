@@ -9,13 +9,8 @@ import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.vo.Message
 
-/**
- * Created by imozerov on 08/07/2017.
- */
-class ChatAdapter() :
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
-
-    internal var messages: List<Message>? = null
+class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+    private var messages: List<Message>? = null
 
     fun setMessages(newChatList: List<Message>) {
         if (messages == null) {

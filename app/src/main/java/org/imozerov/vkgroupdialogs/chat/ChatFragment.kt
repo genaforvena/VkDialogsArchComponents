@@ -2,6 +2,7 @@ package org.imozerov.vkgroupdialogs.chat
 
 import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
@@ -11,11 +12,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.vo.Message
+import org.imozerov.vkgroupdialogs.di.Injectable
 import org.imozerov.vkgroupdialogs.viewmodel.ChatViewModel
 import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.vo.Message
+import javax.inject.Inject
 
-class ChatFragment : LifecycleFragment() {
+class ChatFragment : LifecycleFragment(), Injectable {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var adapter: ChatAdapter? = null
     private var chatList: RecyclerView? = null
@@ -36,15 +41,9 @@ class ChatFragment : LifecycleFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val factory = ChatViewModel.Factory(activity.application, arguments.getInt(KEY_CHAT_ID))
+        val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
 
-        val viewModel = ViewModelProviders.of(this, factory).get(ChatViewModel::class.java)
-
-        subscribeUi(viewModel)
-    }
-
-    private fun subscribeUi(viewModel: ChatViewModel) {
-        viewModel.messages().observe(this, Observer<List<Message>> { messages ->
+        viewModel.messages(arguments.getInt(KEY_CHAT_ID)).observe(this, Observer<List<Message>> { messages ->
             if (messages != null) {
                 adapter!!.setMessages(messages)
                 updateVisibility(isDataPresent = true)
