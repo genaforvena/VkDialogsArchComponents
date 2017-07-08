@@ -17,4 +17,7 @@ public interface ChatDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ChatEntity> chats);
+
+    @Query("SELECT * FROM chats where id = :chatId")
+    LiveData<ChatEntity> loadChat(int chatId);
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
+import org.imozerov.vkgroupdialogs.chat.ChatFragment
 import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
 import org.imozerov.vkgroupdialogs.persistance.model.Chat
 
@@ -27,6 +28,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun show(chat: Chat) {
+        val chatFragment = ChatFragment.forChat(chat)
 
+        supportFragmentManager
+                .beginTransaction()
+                .addToBackStack("chat")
+                .replace(R.id.fragment_container,
+                        chatFragment, null).commit()
     }
+
 }
