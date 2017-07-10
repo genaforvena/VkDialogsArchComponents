@@ -57,6 +57,8 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         fun bind(chat: ChatEntity) {
             with(chat) {
                 itemView.chat_name.text  = chat.id.toString()
+                itemView.chat_lastMessage.text = chat.lastMessageText
+                itemView.chat_lastMessageDate.text = chat.lastMessageTime?.toString()
                 itemView.setOnClickListener { chatClickCallback.onClick(chat) }
             }
         }

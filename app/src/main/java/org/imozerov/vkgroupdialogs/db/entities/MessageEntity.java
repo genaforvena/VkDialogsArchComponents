@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "messages", foreignKeys = {
         @ForeignKey(entity = ChatEntity.class,
                 parentColumns = "id",
@@ -17,6 +19,7 @@ public class MessageEntity {
     @PrimaryKey
     private long id;
     private String text;
+    private Date date;
     private long chatId;
     private long senderId;
 
@@ -50,5 +53,13 @@ public class MessageEntity {
 
     public void setSenderId(long senderId) {
         this.senderId = senderId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

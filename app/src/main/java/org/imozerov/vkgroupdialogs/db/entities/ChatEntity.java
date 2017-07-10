@@ -3,6 +3,8 @@ package org.imozerov.vkgroupdialogs.db.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "chats")
 public class ChatEntity {
     @PrimaryKey
@@ -11,6 +13,8 @@ public class ChatEntity {
     private String photo50;
     private String photo100;
     private String photo200;
+    private String lastMessageText;
+    private Date lastMessageTime;
 
     public long getId() {
         return id;
@@ -50,5 +54,21 @@ public class ChatEntity {
 
     public void setPhoto200(String photo200) {
         this.photo200 = photo200;
+    }
+
+    public String getLastMessageText() {
+        return lastMessageText;
+    }
+
+    public void setLastMessageText(String lastMessageText) {
+        this.lastMessageText = lastMessageText;
+    }
+
+    public Date getLastMessageTime() {
+        return lastMessageTime;
+    }
+
+    public void setLastMessageTime(Date lastMessageTime) {
+        this.lastMessageTime = lastMessageTime;
     }
 }

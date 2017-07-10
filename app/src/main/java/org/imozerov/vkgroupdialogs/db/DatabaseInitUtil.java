@@ -5,6 +5,7 @@ import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseInitUtil {
@@ -22,6 +23,8 @@ public class DatabaseInitUtil {
 
         ChatEntity chat4 = new ChatEntity();
         chat4.setId(4);
+        chat4.setLastMessageText("Hello");
+        chat4.setLastMessageTime(new Date(23242342l));
 
         chats.add(chat);
         chats.add(chat2);

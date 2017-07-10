@@ -1,10 +1,10 @@
 package org.imozerov.vkgroupdialogs.vo
 
 data class Message(
-        private val id: Long,
-        private val date: Long,
-        private val text: String,
-        private val photoUrl: String,
-        private val sender: User,
-        private val isMine: Boolean
+        val id: Long,
+        val date: Long,
+        val text: String,
+        val photoUrl: String,
+        val sender: User,
+        val isMine: Boolean
 )
