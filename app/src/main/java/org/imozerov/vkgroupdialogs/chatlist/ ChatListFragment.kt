@@ -37,6 +37,7 @@ class ChatListFragment : LifecycleFragment(), Injectable {
         loadingView = rootView.loading_tv
 
         adapter = ChatListAdapter(onChatClickCallback)
+        adapter!!.setHasStableIds(true)
         rootView.rootView.chat_list.adapter = adapter
 
         return rootView.rootView

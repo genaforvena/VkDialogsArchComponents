@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
+import org.imozerov.vkgroupdialogs.util.DateUtil
 
-class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
+class ChatListAdapter(
+        private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
     private var chats: List<ChatEntity>? = null
 
@@ -56,9 +58,10 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
         fun bind(chat: ChatEntity) {
             with(chat) {
-                itemView.chat_name.text  = chat.id.toString()
-                itemView.chat_lastMessage.text = chat.lastMessageText
-                itemView.chat_lastMessageDate.text = chat.lastMessageTime?.toString()
+                itemView.chat_name.text  = id.toString()
+                itemView.chat_last_message.text = lastMessageText
+                itemView.chat_date.text = DateUtil.chatLastMessage(lastMessageTime)
+                itemView.chat_image.setImageBitmap(avatar)
                 itemView.setOnClickListener { chatClickCallback.onClick(chat) }
             }
         }

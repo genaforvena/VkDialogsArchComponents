@@ -2,6 +2,7 @@ package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Bitmap;
 
 import java.util.Date;
 
@@ -10,9 +11,7 @@ public class ChatEntity {
     @PrimaryKey
     private long id;
     private String name;
-    private String photo50;
-    private String photo100;
-    private String photo200;
+    private Bitmap avatar;
     private String lastMessageText;
     private Date lastMessageTime;
 
@@ -32,28 +31,12 @@ public class ChatEntity {
         this.name = name;
     }
 
-    public String getPhoto50() {
-        return photo50;
+    public Bitmap getAvatar() {
+        return avatar;
     }
 
-    public void setPhoto50(String photo50) {
-        this.photo50 = photo50;
-    }
-
-    public String getPhoto100() {
-        return photo100;
-    }
-
-    public void setPhoto100(String photo100) {
-        this.photo100 = photo100;
-    }
-
-    public String getPhoto200() {
-        return photo200;
-    }
-
-    public void setPhoto200(String photo200) {
-        this.photo200 = photo200;
+    public void setAvatar(Bitmap avatar) {
+        this.avatar = avatar;
     }
 
     public String getLastMessageText() {

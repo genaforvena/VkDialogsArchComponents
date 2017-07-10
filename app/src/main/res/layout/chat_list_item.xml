@@ -1,24 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/chat_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chat_image"
+        android:src="@drawable/ic_launcher_background"
+        android:layout_width="@dimen/chat_icon_size"
+        android:layout_height="@dimen/chat_icon_size"
+        android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/chat_lastMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp" />
-
-    <TextView
-        android:id="@+id/chat_lastMessageDate"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chat_name" />
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-</RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/chat_name"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="@dimen/chat_info_text_size"
+                android:textStyle="bold"
+                android:paddingRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/chat_date"
+                android:textSize="@dimen/chat_sub_info_text_size"
+                android:textColor="@color/chat_sub_info_text_color" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chat_last_message"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textSize="@dimen/chat_sub_info_text_size"
+            android:textColor="@color/chat_sub_info_text_color" />
+
+    </LinearLayout>
+
+</LinearLayout>

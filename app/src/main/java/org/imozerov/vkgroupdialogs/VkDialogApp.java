@@ -31,7 +31,7 @@ public class VkDialogApp extends Application implements HasActivityInjector {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                DatabaseInitUtil.initializeDb(appDatabase);
+                DatabaseInitUtil.initializeDb(VkDialogApp.this, appDatabase);
                 return null;
             }
         }.execute();

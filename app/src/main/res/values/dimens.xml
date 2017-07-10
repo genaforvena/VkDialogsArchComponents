@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="chat_icon_size">50dp</dimen>
+    <dimen name="chat_info_text_size">16sp</dimen>
+    <dimen name="chat_sub_info_text_size">12sp</dimen>
 </resources>
