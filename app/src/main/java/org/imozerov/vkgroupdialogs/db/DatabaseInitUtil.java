@@ -48,6 +48,7 @@ public class DatabaseInitUtil {
 
         UserEntity userEntity = new UserEntity();
         userEntity.setId(1);
+        userEntity.setPhotoUrl("https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067");
 
         users.add(userEntity);
 
@@ -55,9 +56,19 @@ public class DatabaseInitUtil {
         message.setId(1);
         message.setChatId(4);
         message.setSenderId(1);
+        message.setDate(new Date(1121321l));
         message.setText("dfsdf");
 
+        MessageEntity message2 = new MessageEntity();
+        message2.setId(1);
+        message2.setChatId(4);
+        message2.setSenderId(1);
+        message2.setDate(new Date(342342342l));
+        message2.setText("Hello");
+        message2.setMine(true);
+
         messages.add(message);
+        messages.add(message2);
 
         db.beginTransaction();
         try {

@@ -4,9 +4,6 @@ import android.arch.persistence.room.Embedded;
 
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
 
-/**
- * Created by imozerov on 10/07/2017.
- */
 
 public class Message {
     @Embedded

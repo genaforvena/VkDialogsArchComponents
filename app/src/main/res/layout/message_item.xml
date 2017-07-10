@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="left"
+    android:paddingLeft="8dp"
+    android:paddingTop="4dp"
+    android:paddingRight="8dp"
+    android:paddingBottom="4dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/chat_icon_size"
+        android:layout_height="@dimen/chat_icon_size"
+        android:id="@+id/message_user_avatar"
+        android:layout_toLeftOf="@+id/message_container" />
+
+    <LinearLayout
+        android:id="@+id/message_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/chat_left"
+        android:paddingLeft="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingRight="2dp"
+        android:layout_marginLeft="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message_body"
+            android:textSize="@dimen/message_text_size"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/chat_date_color"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:minWidth="100dp"
+        android:measureAllChildren="false"
+        android:layout_weight="1"></FrameLayout>
+
+
+</LinearLayout>

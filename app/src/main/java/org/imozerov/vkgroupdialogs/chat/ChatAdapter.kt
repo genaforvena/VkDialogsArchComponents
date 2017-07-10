@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.chat_list_item.view.*
+import kotlinx.android.synthetic.main.message_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.db.entities.MessageEntity
+import org.imozerov.vkgroupdialogs.util.load
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     private var messages: List<Message>? = null
@@ -42,7 +42,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val binding = LayoutInflater.from(parent.context).inflate(R.layout.chat_list_item, parent, false)
+        val binding = LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
         return ChatViewHolder(binding)
     }
 
@@ -57,7 +57,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(message: Message) {
             with(message) {
-                itemView.chat_name.text  = self.id.toString()
+                itemView.message_body.text  = self.text
+                itemView.message_user_avatar.load(senderPhoto)
             }
         }
     }

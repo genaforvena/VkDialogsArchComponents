@@ -3,5 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="chat_sub_info_text_color">#5e5e5e</color>
+
+    <color name="chat_bg">#7da5af</color>
+    <color name="chat_date_color">#b3b3b3</color>
 </resources>

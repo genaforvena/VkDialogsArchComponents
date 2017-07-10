@@ -12,7 +12,7 @@ import android.widget.TextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.chat_list_fragment.view.*
+import kotlinx.android.synthetic.main.chat_layout.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
@@ -31,13 +31,13 @@ class ChatFragment : LifecycleFragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.chat_list_fragment, container, false)
+        val rootView = inflater?.inflate(R.layout.chat_layout, container, false)
 
-        chatList = rootView!!.chat_list
+        chatList = rootView!!.chat
         loadingView = rootView.loading_tv
 
         adapter = ChatAdapter()
-        rootView.rootView.chat_list.adapter = adapter
+        rootView.rootView.chat.adapter = adapter
 
         return rootView.rootView
     }
