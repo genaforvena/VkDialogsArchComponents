@@ -22,6 +22,7 @@ public class MessageEntity {
     private Date date;
     private long chatId;
     private long senderId;
+    private boolean isMine;
 
     public long getId() {
         return id;
@@ -61,5 +62,13 @@ public class MessageEntity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean isMine() {
+        return isMine;
+    }
+
+    public void setMine(boolean mine) {
+        isMine = mine;
     }
 }

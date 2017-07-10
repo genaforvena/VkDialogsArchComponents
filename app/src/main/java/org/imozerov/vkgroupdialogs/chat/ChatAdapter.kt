@@ -10,9 +10,9 @@ import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
-    private var messages: List<MessageEntity>? = null
+    private var messages: List<Message>? = null
 
-    fun setMessages(newChatList: List<MessageEntity>) {
+    fun setMessages(newChatList: List<Message>) {
         if (messages == null) {
             messages = newChatList
             notifyItemRangeInserted(0, newChatList.size)
@@ -27,13 +27,13 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
                 }
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return this@ChatAdapter.messages!![oldItemPosition].id == newChatList[newItemPosition].id
+                    return this@ChatAdapter.messages!![oldItemPosition].self.id == newChatList[newItemPosition].self.id
                 }
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    val product = newChatList[newItemPosition]
+                    val message = newChatList[newItemPosition]
                     val old = newChatList[oldItemPosition]
-                    return product.id == old.id
+                    return message.self.id == old.self.id
                 }
             })
             messages = newChatList
@@ -55,9 +55,9 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(message: MessageEntity) {
+        fun bind(message: Message) {
             with(message) {
-                itemView.chat_name.text  = message.id.toString()
+                itemView.chat_name.text  = self.id.toString()
             }
         }
     }
