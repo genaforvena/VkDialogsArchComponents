@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
-import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 
 class ChatFragment : LifecycleFragment(), Injectable {
@@ -53,7 +53,7 @@ class ChatFragment : LifecycleFragment(), Injectable {
 
         val messagesSubscription =
                 viewModel
-                        ?.messages(arguments.getInt(KEY_CHAT_ID))!!
+                        ?.messages(arguments.getLong(KEY_CHAT_ID))!!
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe {
@@ -80,10 +80,10 @@ class ChatFragment : LifecycleFragment(), Injectable {
     }
 
     companion object {
-        fun forChat(chat: Chat): ChatFragment {
+        fun forChat(chat: ChatEntity): ChatFragment {
             val fragment = ChatFragment()
             val args = Bundle()
-            args.putInt(KEY_CHAT_ID, chat.id)
+            args.putLong(KEY_CHAT_ID, chat.id)
             fragment.arguments = args
             return fragment
         }

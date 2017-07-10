@@ -9,5 +9,5 @@ import javax.inject.Inject
 class ChatViewModel @Inject
 constructor(application: Application,
             private val messagesRepository: MessagesRepository) : AndroidViewModel(application) {
-    fun messages(chatId: Int) = messagesRepository.messages(chatId)
+    fun messages(chatId: Long) = messagesRepository.messages(chatId)
 }

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.chat_list_fragment.view.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.di.Injectable
-import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 
 class ChatListFragment : LifecycleFragment(), Injectable {
@@ -78,7 +78,7 @@ class ChatListFragment : LifecycleFragment(), Injectable {
     }
 
     private val onChatClickCallback = object : ChatClickCallback {
-        override fun onClick(chat: Chat) {
+        override fun onClick(chat: ChatEntity) {
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                 navigator.navigateToChat(chat)
             }

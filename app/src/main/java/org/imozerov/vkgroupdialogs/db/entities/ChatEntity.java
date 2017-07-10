@@ -1,22 +1,22 @@
-package org.imozerov.vkgroupdialogs.vo;
+package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "chats")
-public class Chat {
+public class ChatEntity {
     @PrimaryKey
-    private int id;
+    private long id;
     private String name;
     private String photo50;
     private String photo100;
     private String photo200;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

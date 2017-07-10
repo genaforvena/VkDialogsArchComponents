@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.vo.Message
+import org.imozerov.vkgroupdialogs.db.entities.MessageEntity
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
-    private var messages: List<Message>? = null
+    private var messages: List<MessageEntity>? = null
 
-    fun setMessages(newChatList: List<Message>) {
+    fun setMessages(newChatList: List<MessageEntity>) {
         if (messages == null) {
             messages = newChatList
             notifyItemRangeInserted(0, newChatList.size)
@@ -55,7 +55,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(message: Message) {
+        fun bind(message: MessageEntity) {
             with(message) {
                 itemView.chat_name.text  = message.id.toString()
             }

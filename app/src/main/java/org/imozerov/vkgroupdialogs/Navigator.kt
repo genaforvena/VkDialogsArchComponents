@@ -2,7 +2,7 @@ package org.imozerov.vkgroupdialogs
 
 import org.imozerov.vkgroupdialogs.chat.ChatFragment
 import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
-import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 
 class Navigator @Inject constructor(private val mainActivity: MainActivity) {
@@ -16,7 +16,7 @@ class Navigator @Inject constructor(private val mainActivity: MainActivity) {
                 .commit()
     }
 
-    fun navigateToChat(chat: Chat) {
+    fun navigateToChat(chat: ChatEntity) {
         val chatFragment = ChatFragment.forChat(chat)
 
         mainActivity.supportFragmentManager

@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.vo.Chat
+import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 
 class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
-    private var chats: List<Chat>? = null
+    private var chats: List<ChatEntity>? = null
 
-    fun setChats(newChatList: List<Chat>) {
+    fun setChats(newChatList: List<ChatEntity>) {
         if (chats == null) {
             chats = newChatList
             notifyItemRangeInserted(0, newChatList.size)
@@ -54,7 +54,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
     override fun getItemCount() = if (chats == null) 0 else chats!!.size
 
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
-        fun bind(chat: Chat) {
+        fun bind(chat: ChatEntity) {
             with(chat) {
                 itemView.chat_name.text  = chat.id.toString()
                 itemView.setOnClickListener { chatClickCallback.onClick(chat) }
@@ -64,5 +64,5 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
 }
 
 interface ChatClickCallback {
-    fun onClick(chat: Chat)
+    fun onClick(chat: ChatEntity)
 }
