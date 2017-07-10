@@ -5,6 +5,8 @@ import android.app.Application;
 import android.database.DatabaseUtils;
 import android.os.AsyncTask;
 
+import com.facebook.stetho.Stetho;
+
 import org.imozerov.vkgroupdialogs.db.AppDatabase;
 import org.imozerov.vkgroupdialogs.db.DatabaseInitUtil;
 import org.imozerov.vkgroupdialogs.di.AppInjector;
@@ -24,6 +26,7 @@ public class VkDialogApp extends Application implements HasActivityInjector {
     public void onCreate() {
         super.onCreate();
         AppInjector.init(this);
+        Stetho.initializeWithDefaults(this);
 
         new AsyncTask<Void, Void, Void>() {
             @Override
