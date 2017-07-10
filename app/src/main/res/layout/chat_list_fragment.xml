@@ -11,14 +11,13 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/loading_chats"
-            android:visibility="visible"
+            android:visibility="gone"
             android:textAlignment="center" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/chat_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             app:layoutManager="LinearLayoutManager"/>
 
 </LinearLayout>
