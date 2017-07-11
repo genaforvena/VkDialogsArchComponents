@@ -1,18 +1,18 @@
 package org.imozerov.vkgroupdialogs.repository
 
-import io.reactivex.Flowable
+import android.arch.lifecycle.LiveData
+import org.imozerov.vkgroupdialogs.chat.ChatInfo
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
-import org.imozerov.vkgroupdialogs.db.entities.UserEntity
 import javax.inject.Inject
 
 class ChatsRepository @Inject
 constructor(private val chatDao: ChatDao) {
-    fun chats() : Flowable<List<ChatEntity>> {
+    fun chats() : LiveData<List<ChatEntity>> {
         return chatDao.loadChats()
     }
 
-    fun usersInChat(chatId: Long) : Flowable<List<UserEntity>> {
-        return chatDao.loadUsers(chatId)
+    fun chatInfo(chatId: Long) : LiveData<ChatInfo> {
+        return chatDao.loadChatInfo(chatId)
     }
 }

@@ -2,12 +2,7 @@ package org.imozerov.vkgroupdialogs.chat;
 
 import android.arch.persistence.room.ColumnInfo;
 
-import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
-
 import java.util.Date;
-
-import javax.annotation.Nullable;
-
 
 public class Message {
     @ColumnInfo(name = "id")
