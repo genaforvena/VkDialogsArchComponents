@@ -1,6 +1,6 @@
 package org.imozerov.vkgroupdialogs
 
-import org.imozerov.vkgroupdialogs.chat.ChatFragment
+import org.imozerov.vkgroupdialogs.chat.ChatActivity
 import org.imozerov.vkgroupdialogs.chatlist.ChatListFragment
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
@@ -17,12 +17,7 @@ class Navigator @Inject constructor(private val mainActivity: MainActivity) {
     }
 
     fun navigateToChat(chat: ChatEntity) {
-        val chatFragment = ChatFragment.forChat(chat)
-
-        mainActivity.supportFragmentManager
-                .beginTransaction()
-                .addToBackStack("chat")
-                .replace(R.id.fragment_container,
-                        chatFragment, null).commit()
+        val intent = ChatActivity.forChat(mainActivity, chat)
+        mainActivity.startActivity(intent)
     }
 }
