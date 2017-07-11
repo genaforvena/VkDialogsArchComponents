@@ -2,14 +2,13 @@ package org.imozerov.vkgroupdialogs;
 
 import android.app.Activity;
 import android.app.Application;
-import android.database.DatabaseUtils;
 import android.os.AsyncTask;
 
 import com.facebook.stetho.Stetho;
 
 import org.imozerov.vkgroupdialogs.db.AppDatabase;
 import org.imozerov.vkgroupdialogs.db.DatabaseInitUtil;
-import org.imozerov.vkgroupdialogs.di.AppInjector;
+import org.imozerov.vkgroupdialogs.di.DaggerAppComponent;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,10 @@ public class VkDialogApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
-        AppInjector.init(this);
+        DaggerAppComponent.builder()
+                .application(this)
+                .build()
+                .inject(this);
         Stetho.initializeWithDefaults(this);
 
         new AsyncTask<Void, Void, Void>() {
