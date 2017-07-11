@@ -2,20 +2,23 @@ package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "chat_to_user", foreignKeys = {
-        @ForeignKey(
-                entity = ChatEntity.class,
-                parentColumns = "id",
-                childColumns = "chatId"
-        ),
-        @ForeignKey(
-                entity = UserEntity.class,
-                parentColumns = "id",
-                childColumns = "userId"
-        )
-})
+@Entity(tableName = "chat_to_user",
+        indices = { @Index(value = { "chatId", "userId" }, unique = true) },
+        foreignKeys = {
+                @ForeignKey(
+                        entity = ChatEntity.class,
+                        parentColumns = "id",
+                        childColumns = "chatId"
+                ),
+                @ForeignKey(
+                        entity = UserEntity.class,
+                        parentColumns = "id",
+                        childColumns = "userId"
+                )
+        })
 public class ChatUserRelationEntity {
     @PrimaryKey(autoGenerate = true)
     private long id;

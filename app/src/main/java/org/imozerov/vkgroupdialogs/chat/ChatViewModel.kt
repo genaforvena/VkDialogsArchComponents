@@ -17,7 +17,9 @@ constructor(application: Application,
             chatsRepository: ChatsRepository,
             messagesRepository: MessagesRepository) : AndroidViewModel(application) {
     private var chatId: MutableLiveData<Long> = MutableLiveData()
-    val messages = Transformations.switchMap(chatId, Function<Long, LiveData<List<Message>>> {
+
+    val messages: LiveData<List<Message>> =
+            Transformations.switchMap(chatId, Function<Long, LiveData<List<Message>>> {
         if (it == 0L) {
             return@Function AbsentLiveData.create<List<Message>>()
         } else {
@@ -25,7 +27,8 @@ constructor(application: Application,
         }
     })
 
-    val chatInfo = Transformations.switchMap(chatId, Function<Long, LiveData<ChatInfo>> {
+    val chatInfo: LiveData<ChatInfo> =
+            Transformations.switchMap(chatId, Function<Long, LiveData<ChatInfo>> {
         if (it == 0L) {
             return@Function AbsentLiveData.create<ChatInfo>()
         } else {
