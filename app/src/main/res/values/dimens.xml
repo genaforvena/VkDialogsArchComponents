@@ -1,10 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="chat_icon_size">48dp</dimen>
+    <dimen name="chat_icon_size">54dp</dimen>
     <dimen name="chat_info_text_size">16sp</dimen>
     <dimen name="chat_sub_info_text_size">12sp</dimen>
     <dimen name="message_text_size">14sp</dimen>
     <dimen name="chat_user_group_image_padding">4dp</dimen>
     <dimen name="chat_user_group_image_margin_right">4dp</dimen>
-    <dimen name="message_photo_width">300dp</dimen>
+    <dimen name="message_photo_width">250dp</dimen>
 </resources>

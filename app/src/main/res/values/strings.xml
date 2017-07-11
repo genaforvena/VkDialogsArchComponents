@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Vk Group Dialogs</string>
+    <string name="chat_list_label">Список бесед</string>
     <string name="loading_chats">Загружаем беседы...</string>
 </resources>
