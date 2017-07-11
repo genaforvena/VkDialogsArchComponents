@@ -14,7 +14,7 @@ import io.reactivex.Flowable;
 
 @Dao
 public interface MessageDao {
-    @Query("SELECT messages.*, users.id, users.photoUrl " +
+    @Query("SELECT messages.*, users.photoUrl " +
             "FROM messages join users ON messages.senderId = users.id " +
             "WHERE messages.chatId = :chatId")
     Flowable<List<Message>> loadMessages(long chatId);

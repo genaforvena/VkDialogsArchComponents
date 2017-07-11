@@ -10,8 +10,7 @@ import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import org.imozerov.vkgroupdialogs.util.DateUtil
 
-class ChatListAdapter(
-        private val chatClickCallback: ChatClickCallback) :
+class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
     private var chats: List<ChatEntity>? = null
 
@@ -22,7 +21,7 @@ class ChatListAdapter(
         } else {
             val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int {
-                    return this@ChatListAdapter.chats!!.size
+                    return chats!!.size
                 }
 
                 override fun getNewListSize(): Int {
@@ -30,13 +29,13 @@ class ChatListAdapter(
                 }
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return this@ChatListAdapter.chats!![oldItemPosition].id == newChatList[newItemPosition].id
+                    return chats!![oldItemPosition].id == newChatList[newItemPosition].id
                 }
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    val product = newChatList[newItemPosition]
+                    val chat = newChatList[newItemPosition]
                     val old = newChatList[oldItemPosition]
-                    return product.id == old.id
+                    return chat.id == old.id
                 }
             })
             chats = newChatList

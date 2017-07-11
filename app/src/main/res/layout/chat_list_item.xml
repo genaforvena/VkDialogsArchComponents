@@ -6,7 +6,7 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/chat_image"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_group_work_black_48dp"
         android:layout_width="@dimen/chat_icon_size"
         android:layout_height="@dimen/chat_icon_size"
         android:scaleType="centerCrop" />

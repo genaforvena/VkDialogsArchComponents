@@ -10,9 +10,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/message_user_avatar"
+        android:src="@drawable/ic_face_black_48dp"
         android:layout_width="@dimen/chat_icon_size"
-        android:layout_height="@dimen/chat_icon_size"
-        android:layout_toLeftOf="@+id/message_container" />
+        android:layout_height="@dimen/chat_icon_size" />
 
     <LinearLayout
         android:id="@+id/message_container"
@@ -55,6 +55,5 @@
         android:layout_weight="1"
         android:measureAllChildren="false"
         android:minWidth="100dp"></FrameLayout>
-
 
 </LinearLayout>

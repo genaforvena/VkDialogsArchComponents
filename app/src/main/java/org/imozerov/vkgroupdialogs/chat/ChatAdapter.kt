@@ -25,22 +25,18 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
             notifyItemRangeInserted(0, newChatList.size)
         } else {
             val result = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-                override fun getOldListSize(): Int {
-                    return this@ChatAdapter.messages!!.size
-                }
+                override fun getOldListSize() = messages!!.size
 
-                override fun getNewListSize(): Int {
-                    return newChatList.size
-                }
+                override fun getNewListSize() =  newChatList.size
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return this@ChatAdapter.messages!![oldItemPosition].self.id == newChatList[newItemPosition].self.id
+                    return messages!![oldItemPosition].id == newChatList[newItemPosition].id
                 }
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                     val message = newChatList[newItemPosition]
                     val old = newChatList[oldItemPosition]
-                    return message.self.id == old.self.id
+                    return message.id == old.id
                 }
             })
             messages = newChatList
@@ -49,12 +45,13 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val binding: View
-        if (viewType == MY) {
-            binding = LayoutInflater.from(parent.context).inflate(R.layout.message_right_item, parent, false)
-        } else {
-            binding = LayoutInflater.from(parent.context).inflate(R.layout.message_left_item, parent, false)
+        val layoutId = when (viewType) {
+            MY -> R.layout.message_right_item
+            OTHER -> R.layout.message_left_item
+            else -> throw RuntimeException("Unknown viewType $viewType")
         }
+
+        val binding = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         return ChatViewHolder(binding)
     }
 
@@ -62,15 +59,13 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         holder.bind(messages!![position])
     }
 
-    override fun getItemCount(): Int {
-        return if (messages == null) 0 else messages!!.size
-    }
-
     override fun getItemViewType(position: Int): Int {
         val message = messages!![position]
 
-        return if (message.self.isMine) MY else OTHER
+        return if (message.isMine) MY else OTHER
     }
+
+    override fun getItemCount() = if (messages == null) 0 else messages!!.size
 
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val body: TextView = view.findViewById(R.id.message_body)
@@ -79,8 +74,8 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
         fun bind(message: Message) {
             with(message) {
-                body.text  = self.text
-                time.text = DateUtil.chatLastMessage(self.date)
+                body.text  = text
+                time.text = DateUtil.chatLastMessage(date)
                 avatar?.load(senderPhoto)
             }
         }
