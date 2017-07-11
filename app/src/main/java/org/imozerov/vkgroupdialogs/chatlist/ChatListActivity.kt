@@ -6,8 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.View
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.chat_list_activity.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
@@ -29,8 +28,7 @@ class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.chat_list_activity)
 
         adapter = ChatListAdapter(onChatClickCallback)
         adapter.setHasStableIds(true)

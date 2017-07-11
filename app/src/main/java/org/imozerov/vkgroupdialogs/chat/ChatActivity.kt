@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.chat_layout.*
+import kotlinx.android.synthetic.main.chat_activity.*
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.chat_layout)
+        setContentView(R.layout.chat_activity)
 
         adapter = ChatAdapter()
         chat.adapter = adapter
