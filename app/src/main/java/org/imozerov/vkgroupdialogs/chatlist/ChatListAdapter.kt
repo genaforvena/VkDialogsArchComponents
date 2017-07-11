@@ -57,7 +57,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
         fun bind(chat: ChatEntity) {
             with(chat) {
-                itemView.chat_name.text  = id.toString()
+                itemView.chat_name.text  = name
                 itemView.chat_last_message.text = lastMessageText
                 itemView.chat_date.text = DateUtil.chatLastMessage(lastMessageTime)
                 itemView.chat_image.setImageBitmap(avatar)
