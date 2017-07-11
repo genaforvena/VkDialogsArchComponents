@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide;
 
 import org.imozerov.vkgroupdialogs.R;
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity;
+import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity;
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity;
 
@@ -36,6 +37,7 @@ public class DatabaseInitUtil {
         chat4.setAvatar(BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.ic_launcher_background));
         chat4.setLastMessageText("Hello");
+        chat4.setName("Test");
         chat4.setLastMessageTime(new Date(23242342l));
 
         chats.add(chat);
@@ -71,11 +73,19 @@ public class DatabaseInitUtil {
         messages.add(message);
         messages.add(message2);
 
+        List<ChatUserRelationEntity> chatUserRelationEntities = new ArrayList<>();
+        ChatUserRelationEntity chatUserRelationEntity = new ChatUserRelationEntity();
+        chatUserRelationEntity.setChatId(4);
+        chatUserRelationEntity.setUserId(1);
+
+        chatUserRelationEntities.add(chatUserRelationEntity);
+
         db.beginTransaction();
         try {
             db.chatDao().insertAll(chats);
             db.userDao().insertAll(users);
             db.messageDao().insertAll(messages);
+            db.chatUserRelationDao().insertAll(chatUserRelationEntities);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();

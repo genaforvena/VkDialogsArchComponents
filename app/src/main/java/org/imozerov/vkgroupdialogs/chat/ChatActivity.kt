@@ -3,8 +3,11 @@ package org.imozerov.vkgroupdialogs.chat
 import android.app.Activity
 import android.arch.lifecycle.*
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.View
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.chat_layout.*
@@ -35,13 +38,39 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
         viewModel.setChatId(intent.getLongExtra(KEY_CHAT_ID, 0))
         viewModel.messages
                 .observe(this, Observer<List<Message>> {
-                            if (it == null) {
-                                return@Observer
-                            }
+                    if (it == null) {
+                        return@Observer
+                    }
 
-                            adapter.setMessages(it)
-                            updateVisibility(isDataPresent = true)
-                        })
+                    adapter.setMessages(it)
+                    updateVisibility(isDataPresent = true)
+                })
+
+        viewModel.chatInfo
+                .observe(this, Observer<ChatInfo> {
+                    if (it == null) {
+                        return@Observer
+                    }
+
+                    supportActionBar?.display(it)
+                })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when (id) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun ActionBar.display(chatInfo: ChatInfo) {
+        title = chatInfo.name
+        subtitle = chatInfo.userIds.size.toString()
+        setLogo(BitmapDrawable(resources, chatInfo.photo))
     }
 
     private fun updateVisibility(isDataPresent: Boolean) {

@@ -25,6 +25,14 @@ constructor(application: Application,
         }
     })
 
+    val chatInfo = Transformations.switchMap(chatId, Function<Long, LiveData<ChatInfo>> {
+        if (it == 0L) {
+            return@Function AbsentLiveData.create<ChatInfo>()
+        } else {
+            return@Function chatsRepository.chatInfo(it)
+        }
+    })
+
     fun setChatId(newChatId: Long) {
         chatId.value = newChatId
     }

@@ -8,6 +8,7 @@ import android.arch.persistence.room.TypeConverters;
 import org.imozerov.vkgroupdialogs.db.converters.BitmapConverter;
 import org.imozerov.vkgroupdialogs.db.converters.DateConverter;
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao;
+import org.imozerov.vkgroupdialogs.db.dao.ChatUserRelationDao;
 import org.imozerov.vkgroupdialogs.db.dao.MessageDao;
 import org.imozerov.vkgroupdialogs.db.dao.UserDao;
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity;
@@ -27,4 +28,6 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract MessageDao messageDao();
 
     public abstract UserDao userDao();
+
+    public abstract ChatUserRelationDao chatUserRelationDao();
 }
