@@ -3,6 +3,7 @@ package org.imozerov.vkgroupdialogs.db;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 
@@ -12,6 +13,10 @@ import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity;
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,10 +39,9 @@ public class DatabaseInitUtil {
 
         ChatEntity chat4 = new ChatEntity();
         chat4.setId(4);
-        chat4.setAvatar(BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_launcher_background));
         chat4.setLastMessageText("Hello");
         chat4.setName("Test");
+        chat4.setAvatar(getBitmapFromURL("https://camo.mybb.com/e01de90be6012adc1b1701dba899491a9348ae79/687474703a2f2f7777772e6a71756572797363726970742e6e65742f696d616765732f53696d706c6573742d526573706f6e736976652d6a51756572792d496d6167652d4c69676874626f782d506c7567696e2d73696d706c652d6c69676874626f782e6a7067"));
         chat4.setLastMessageTime(new Date(23242342l));
 
         chats.add(chat);
@@ -89,6 +93,22 @@ public class DatabaseInitUtil {
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
+        }
+    }
+
+    private static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            Log.e("DbInit", "failed to load image", e);
+            // Log exception
+            return null;
         }
     }
 
