@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 
 import java.util.Date;
 
+import javax.annotation.Nullable;
+
 public class Message {
     @ColumnInfo(name = "id")
     private long id;
@@ -13,6 +15,9 @@ public class Message {
     private boolean isMine;
     @ColumnInfo(name = "date")
     private Date date;
+    @Nullable
+    @ColumnInfo(name = "photo")
+    private String photo;
     @ColumnInfo(name = "photoUrl")
     private String senderPhoto;
 
@@ -54,5 +59,14 @@ public class Message {
 
     public void setSenderPhoto(String senderPhoto) {
         this.senderPhoto = senderPhoto;
+    }
+
+    @Nullable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(@Nullable String photo) {
+        this.photo = photo;
     }
 }

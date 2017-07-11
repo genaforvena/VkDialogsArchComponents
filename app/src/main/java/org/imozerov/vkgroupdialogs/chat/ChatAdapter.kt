@@ -71,12 +71,17 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         private val body: TextView = view.findViewById(R.id.message_body)
         private val time: TextView = view.findViewById(R.id.message_time)
         private val avatar: ImageView? = view.findViewById(R.id.message_user_avatar)
+        private val attachment: ImageView = view.findViewById(R.id.message_photo)
 
         fun bind(message: Message) {
             with(message) {
                 body.text  = text
                 time.text = DateUtil.chatLastMessage(date)
                 avatar?.load(senderPhoto)
+                photo?.apply {
+                    attachment.visibility = View.VISIBLE
+                    attachment.load(photo)
+                }
             }
         }
     }

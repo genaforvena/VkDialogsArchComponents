@@ -73,6 +73,7 @@ public class DatabaseInitUtil {
         message2.setDate(new Date(342342342l));
         message2.setText("Hello");
         message2.setMine(true);
+        message2.setPhoto("https://www.w3schools.com/css/trolltunga.jpg");
 
         messages.add(message);
         messages.add(message2);

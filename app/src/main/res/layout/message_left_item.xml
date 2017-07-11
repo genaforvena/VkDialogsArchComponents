@@ -27,6 +27,12 @@
         android:paddingRight="2dp"
         android:paddingTop="4dp">
 
+        <ImageView
+            android:id="@+id/message_photo"
+            android:layout_width="@dimen/message_photo_width"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/message_body"
             android:layout_width="match_parent"

@@ -6,6 +6,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
+import javax.annotation.Nullable;
+
 @Entity(tableName = "messages", foreignKeys = {
         @ForeignKey(entity = ChatEntity.class,
                 parentColumns = "id",
@@ -19,6 +21,8 @@ public class MessageEntity {
     @PrimaryKey
     private long id;
     private String text;
+    @Nullable
+    private String photo;
     private Date date;
     private long chatId;
     private long senderId;
@@ -70,5 +74,14 @@ public class MessageEntity {
 
     public void setMine(boolean mine) {
         isMine = mine;
+    }
+
+    @Nullable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(@Nullable String photo) {
+        this.photo = photo;
     }
 }
