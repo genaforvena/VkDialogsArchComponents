@@ -5,11 +5,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.message_item.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import org.imozerov.vkgroupdialogs.R
+import org.imozerov.vkgroupdialogs.util.DateUtil
 import org.imozerov.vkgroupdialogs.util.load
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+    companion object {
+        val OTHER = 455
+        val MY = 335
+    }
+
     private var messages: List<Message>? = null
 
     fun setMessages(newChatList: List<Message>) {
@@ -42,7 +49,12 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val binding = LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
+        val binding: View
+        if (viewType == MY) {
+            binding = LayoutInflater.from(parent.context).inflate(R.layout.message_right_item, parent, false)
+        } else {
+            binding = LayoutInflater.from(parent.context).inflate(R.layout.message_left_item, parent, false)
+        }
         return ChatViewHolder(binding)
     }
 
@@ -54,11 +66,22 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         return if (messages == null) 0 else messages!!.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        val message = messages!![position]
+
+        return if (message.self.isMine) MY else OTHER
+    }
+
     class ChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val body: TextView = view.findViewById(R.id.message_body)
+        private val time: TextView = view.findViewById(R.id.message_time)
+        private val avatar: ImageView? = view.findViewById(R.id.message_user_avatar)
+
         fun bind(message: Message) {
             with(message) {
-                itemView.message_body.text  = self.text
-                itemView.message_user_avatar.load(senderPhoto)
+                body.text  = self.text
+                time.text = DateUtil.chatLastMessage(self.date)
+                avatar?.load(senderPhoto)
             }
         }
     }

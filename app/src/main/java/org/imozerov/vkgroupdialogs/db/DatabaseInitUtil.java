@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+// TODO Remove me as soon as true data will be available
 public class DatabaseInitUtil {
     public static void initializeDb(Context context, AppDatabase db) {
         List<ChatEntity> chats = new ArrayList<>();
@@ -60,7 +61,7 @@ public class DatabaseInitUtil {
         message.setText("dfsdf");
 
         MessageEntity message2 = new MessageEntity();
-        message2.setId(1);
+        message2.setId(2);
         message2.setChatId(4);
         message2.setSenderId(1);
         message2.setDate(new Date(342342342l));
