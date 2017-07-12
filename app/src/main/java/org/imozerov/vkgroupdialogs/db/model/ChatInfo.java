@@ -20,6 +20,8 @@ public class ChatInfo {
     @Nullable
     @ColumnInfo(name = "photo")
     private String photo;
+    @ColumnInfo(name = "usersCount")
+    private int usersCount;
 
     @Relation(
             entity = ChatUserRelationEntity.class,
@@ -67,5 +69,13 @@ public class ChatInfo {
 
     public void setPhoto(@Nullable String photo) {
         this.photo = photo;
+    }
+
+    public int getUsersCount() {
+        return usersCount;
+    }
+
+    public void setUsersCount(int usersCount) {
+        this.usersCount = usersCount;
     }
 }

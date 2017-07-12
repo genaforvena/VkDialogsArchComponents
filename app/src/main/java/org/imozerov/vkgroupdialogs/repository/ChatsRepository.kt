@@ -50,6 +50,7 @@ constructor(private val chatDao: ChatDao,
                             chatEntity.name = message.chatName
                             chatEntity.lastMessageText = message.text
                             chatEntity.lastMessageTime = Date(message.date)
+                            chatEntity.usersCount = message.usersCount
                             message.photo50?.apply {
                                 chatEntity.photo = message.photo50
                             }

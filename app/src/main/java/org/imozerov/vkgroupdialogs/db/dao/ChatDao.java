@@ -17,7 +17,8 @@ public interface ChatDao {
     @Query("SELECT * FROM chats")
     LiveData<List<ChatEntity>> loadChats();
 
-    @Query("SELECT chats.id, chats.name, chats.avatar, chats.photo FROM chats WHERE id = :chatId")
+    @Query("SELECT chats.id, chats.name, chats.avatar, chats.photo, chats.usersCount " +
+            "FROM chats WHERE id = :chatId")
     LiveData<ChatInfo> loadChatInfo(long chatId);
 
     @Query("SELECT users.* " +

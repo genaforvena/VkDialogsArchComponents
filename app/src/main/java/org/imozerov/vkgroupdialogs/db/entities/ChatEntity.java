@@ -18,7 +18,9 @@ public class ChatEntity {
     @Nullable
     private String photo;
     private String lastMessageText;
+    // TODO no reason to have it as date really. Can use long
     private Date lastMessageTime;
+    private int usersCount;
 
     public long getId() {
         return id;
@@ -67,5 +69,13 @@ public class ChatEntity {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public int getUsersCount() {
+        return usersCount;
+    }
+
+    public void setUsersCount(int usersCount) {
+        this.usersCount = usersCount;
     }
 }

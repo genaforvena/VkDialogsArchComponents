@@ -92,7 +92,7 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     private fun ActionBar.display(chatInfo: ChatInfo) {
         title = chatInfo.name
-        subtitle = chatInfo.userIds.size.toString()
+        subtitle = chatInfo.usersCount.toString()
 
         if (chatInfo.photo != null) {
             setGroupImage { it.load(chatInfo.photo) }
