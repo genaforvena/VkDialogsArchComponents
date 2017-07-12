@@ -2,7 +2,6 @@ package org.imozerov.vkgroupdialogs;
 
 import android.app.Activity;
 import android.app.Application;
-import android.os.AsyncTask;
 
 import com.facebook.stetho.Stetho;
 import com.vk.sdk.VKAccessToken;
@@ -10,7 +9,6 @@ import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
 
 import org.imozerov.vkgroupdialogs.db.AppDatabase;
-import org.imozerov.vkgroupdialogs.db.DatabaseInitUtil;
 import org.imozerov.vkgroupdialogs.di.DaggerAppComponent;
 
 import javax.inject.Inject;
@@ -45,14 +43,6 @@ public class VkDialogApp extends Application implements HasActivityInjector {
 
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                DatabaseInitUtil.initializeDb(VkDialogApp.this, appDatabase);
-                return null;
-            }
-        }.execute();
     }
 
     @Override

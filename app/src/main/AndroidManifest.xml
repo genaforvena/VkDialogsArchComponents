@@ -12,19 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".chatlist.ChatListActivity"
-            android:label="@string/chat_list_label">
-        </activity>
-        <activity
-            android:name=".chat.ChatActivity"
-            android:parentActivityName=".chatlist.ChatListActivity"></activity>
-
-        <!-- Activity needed by VkSdk to perform authorization -->
-        <activity
-            android:name="com.vk.sdk.VKServiceActivity"
-            android:label="ServiceActivity"
-            android:theme="@style/VK.Transparent" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +19,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".chatlist.ChatListActivity"
+            android:label="@string/chat_list_label">
+        </activity>
+
+        <activity
+            android:name=".chat.ChatActivity"
+            android:parentActivityName=".chatlist.ChatListActivity" />
+
+        <!-- Activity needed by VkSdk to perform authorization -->
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
     </application>
 
 </manifest>

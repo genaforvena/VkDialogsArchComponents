@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
-
 import org.imozerov.vkgroupdialogs.Executors
+import org.imozerov.vkgroupdialogs.api.ApiResponse
 
 /**
  * Kotlin version for class from https://github.com/googlesamples/android-architecture-components
@@ -29,31 +29,31 @@ abstract class NetworkBoundResource<ResultType> @MainThread
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
-//        val apiResponse = createCall()
+        val apiResponse = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
         result.addSource(dbSource) { newData -> result.setValue(Resource.loading(newData)) }
-//        result.addSource<ApiResponse<RequestType>>(apiResponse) { response ->
-//            result.removeSource<ApiResponse<RequestType>>(apiResponse)
-//            result.removeSource(dbSource)
-//
-//            if (response != null && response.isSuccessful) {
-//                executors.diskIO.execute({
-//                    saveCallResult(processResponse(response))
-//                    executors.mainThread.execute({
-//                        // we specially request a new live data,
-//                        // otherwise we will get immediately last cached value,
-//                        // which may not be updated with latest results received from network.
-//                        result.addSource(loadFromDb())
-//                                    { newData -> result.setValue(Resource.success(newData)) }
-//                    })
-//                })
-//            } else {
-//                onFetchFailed()
-//                result.addSource(dbSource)
-//                            { newData ->
-//                                result.setValue(Resource.error(response?.errorMessage?: "No error message", newData)) }
-//            }
-//        }
+        result.addSource<ApiResponse>(apiResponse) { response ->
+            result.removeSource<ApiResponse>(apiResponse)
+            result.removeSource(dbSource)
+
+            if (response != null && response.response != null) {
+                executors.diskIO.execute({
+                    saveCallResult(parseResponse(response))
+                    executors.mainThread.execute({
+                        // we specially request a new live data,
+                        // otherwise we will get immediately last cached value,
+                        // which may not be updated with latest results received from network.
+                        result.addSource(loadFromDb())
+                                    { newData -> result.setValue(Resource.success(newData)) }
+                    })
+                })
+            } else {
+                onFetchFailed()
+                result.addSource(dbSource)
+                            { newData ->
+                                result.setValue(Resource.error(response?.error?.errorMessage?: "No error message", newData)) }
+            }
+        }
     }
 
     protected fun onFetchFailed() {}
@@ -62,13 +62,11 @@ abstract class NetworkBoundResource<ResultType> @MainThread
         return result
     }
 
-//    @WorkerThread
-//    protected fun processResponse(response: ApiResponse<RequestType>): RequestType {
-//        return response.body!!
-//    }
+    @WorkerThread
+    protected abstract fun parseResponse(response: ApiResponse): Any
 
-//    @WorkerThread
-//    protected abstract fun saveCallResult(item: RequestType)
+    @WorkerThread
+    protected abstract fun saveCallResult(item: Any)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
@@ -76,6 +74,6 @@ abstract class NetworkBoundResource<ResultType> @MainThread
     @MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-//    @MainThread
-//    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    @MainThread
+    protected abstract fun createCall(): LiveData<ApiResponse>
 }

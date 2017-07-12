@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
         if (VKSdk.isLoggedIn()) {
             navigateToChatList()
         } else {
-            VKSdk.login(this, null)
+            VKSdk.login(this, "friends", "wall", "photos", "messages")
         }
     }
 
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
             }
             override fun onError(error: VKError?) {
 //                TODO("Handle login error")
-                VKSdk.login(this@LoginActivity, null)
+                VKSdk.login(this@LoginActivity, "friends", "wall", "photos", "messages")
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data)

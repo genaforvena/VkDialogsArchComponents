@@ -1,9 +1,10 @@
 package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "users")
+@Entity(tableName = "users", indices = { @Index("id") })
 public class UserEntity {
     @PrimaryKey
     private long id;

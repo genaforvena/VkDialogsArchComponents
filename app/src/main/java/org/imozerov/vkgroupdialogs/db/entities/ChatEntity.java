@@ -1,12 +1,13 @@
 package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
 import java.util.Date;
 
-@Entity(tableName = "chats")
+@Entity(tableName = "chats", indices = { @Index("id") })
 public class ChatEntity {
     @PrimaryKey
     private long id;
