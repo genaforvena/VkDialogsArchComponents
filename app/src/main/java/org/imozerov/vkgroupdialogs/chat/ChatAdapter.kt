@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.imozerov.vkgroupdialogs.R
+import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.util.DateUtil
 import org.imozerov.vkgroupdialogs.util.load
 

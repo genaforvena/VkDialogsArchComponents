@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.chat;
+package org.imozerov.vkgroupdialogs.db.model;
 
 import android.arch.persistence.room.ColumnInfo;
 

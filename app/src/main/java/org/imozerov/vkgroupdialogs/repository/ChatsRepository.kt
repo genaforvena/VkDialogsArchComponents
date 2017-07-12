@@ -8,11 +8,9 @@ import com.vk.sdk.api.VKParameters
 import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.api.ApiCall
 import org.imozerov.vkgroupdialogs.api.ApiResponse
-import org.imozerov.vkgroupdialogs.chat.ChatInfo
+import org.imozerov.vkgroupdialogs.db.model.ChatInfo
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
-import org.json.JSONException
-import org.json.JSONObject
 import java.util.*
 import javax.inject.Inject
 
@@ -52,18 +50,12 @@ constructor(private val chatDao: ChatDao,
                             chatEntity.name = message.chatName
                             chatEntity.lastMessageText = message.text
                             chatEntity.lastMessageTime = Date(message.date)
+                            message.photo50?.apply {
+                                chatEntity.photo = message.photo50
+                            }
                         }
                         return@map chatEntity
                     }
-        }
-
-        private fun isGroupChat(data: JSONObject?): Boolean {
-            try {
-                return data != null && data.has("users_count") && data.getInt("users_count") > 1
-            } catch (e: JSONException) {
-                return false
-            }
-
         }
 
         override fun shouldFetch(data: List<ChatEntity>?) = true
@@ -102,4 +94,5 @@ data class Message(@SerializedName("chat_id") val chatId: Long,
                    @SerializedName("users_count") val usersCount: Int,
                    @SerializedName("body") val text: String,
                    @SerializedName("date") val date: Long,
+                   @SerializedName("photo_50") val photo50: String?,
                    @SerializedName("title") val chatName: String?)

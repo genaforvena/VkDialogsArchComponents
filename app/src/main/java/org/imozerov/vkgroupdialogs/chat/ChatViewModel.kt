@@ -6,6 +6,8 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
+import org.imozerov.vkgroupdialogs.db.model.ChatInfo
+import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.repository.ChatsRepository
 
 import org.imozerov.vkgroupdialogs.repository.MessagesRepository

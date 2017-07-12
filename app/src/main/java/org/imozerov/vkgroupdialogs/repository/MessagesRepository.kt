@@ -5,7 +5,7 @@ import com.vk.sdk.api.VKApi
 import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.api.ApiResponse
 import org.imozerov.vkgroupdialogs.api.ApiCall
-import org.imozerov.vkgroupdialogs.chat.Message
+import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.db.dao.MessageDao
 import javax.inject.Inject
 

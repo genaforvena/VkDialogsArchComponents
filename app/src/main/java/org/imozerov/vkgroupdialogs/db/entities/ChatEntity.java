@@ -7,12 +7,16 @@ import android.graphics.Bitmap;
 
 import java.util.Date;
 
+import javax.annotation.Nullable;
+
 @Entity(tableName = "chats", indices = { @Index("id") })
 public class ChatEntity {
     @PrimaryKey
     private long id;
     private String name;
     private Bitmap avatar;
+    @Nullable
+    private String photo;
     private String lastMessageText;
     private Date lastMessageTime;
 
@@ -54,5 +58,14 @@ public class ChatEntity {
 
     public void setLastMessageTime(Date lastMessageTime) {
         this.lastMessageTime = lastMessageTime;
+    }
+
+    @Nullable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

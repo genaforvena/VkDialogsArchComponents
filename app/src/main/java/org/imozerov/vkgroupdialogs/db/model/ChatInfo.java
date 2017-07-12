@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.chat;
+package org.imozerov.vkgroupdialogs.db.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Relation;
@@ -8,13 +8,18 @@ import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class ChatInfo {
     @ColumnInfo(name = "id")
     private long id;
     @ColumnInfo(name = "name")
     private String name;
     @ColumnInfo(name = "avatar")
-    private Bitmap photo;
+    private Bitmap photoFallback;
+    @Nullable
+    @ColumnInfo(name = "photo")
+    private String photo;
 
     @Relation(
             entity = ChatUserRelationEntity.class,
@@ -47,11 +52,20 @@ public class ChatInfo {
         this.userIds = userIds;
     }
 
-    public Bitmap getPhoto() {
+    public Bitmap getPhotoFallback() {
+        return photoFallback;
+    }
+
+    public void setPhotoFallback(Bitmap photoFallback) {
+        this.photoFallback = photoFallback;
+    }
+
+    @Nullable
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Bitmap photo) {
+    public void setPhoto(@Nullable String photo) {
         this.photo = photo;
     }
 }

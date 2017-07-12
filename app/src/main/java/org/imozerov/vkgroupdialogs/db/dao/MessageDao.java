@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import org.imozerov.vkgroupdialogs.chat.Message;
+import org.imozerov.vkgroupdialogs.db.model.Message;
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity;
 
 import java.util.List;

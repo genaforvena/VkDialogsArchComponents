@@ -3,7 +3,6 @@ package org.imozerov.vkgroupdialogs.chat
 import android.app.Activity
 import android.arch.lifecycle.*
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
@@ -15,8 +14,12 @@ import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 import android.view.Gravity
+import android.widget.ImageView
 import de.hdodenhof.circleimageview.CircleImageView
+import org.imozerov.vkgroupdialogs.db.model.ChatInfo
+import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.repository.Resource
+import org.imozerov.vkgroupdialogs.util.load
 
 
 class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
@@ -91,17 +94,21 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
         title = chatInfo.name
         subtitle = chatInfo.userIds.size.toString()
 
-        if (chatInfo.photo == null) {
-            // todo ("remove this check when data available")
-            return;
+        if (chatInfo.photo != null) {
+            setGroupImage { it.load(chatInfo.photo) }
+        } else {
+            if (chatInfo.photoFallback == null) {
+                // todo ("remove this check when data available")
+                return;
+            }
+            setGroupImage { it.setImageBitmap(chatInfo.photoFallback) }
         }
-        setGroupImage(chatInfo.photo)
     }
 
-    private fun ActionBar.setGroupImage(image: Bitmap) {
+    private inline fun ActionBar.setGroupImage(setImageCall: (imageView: ImageView) -> Unit) {
         displayOptions = displayOptions or ActionBar.DISPLAY_SHOW_CUSTOM
         val imageView = CircleImageView(themedContext)
-        imageView.setImageBitmap(image)
+        setImageCall(imageView)
         val layoutParams = ActionBar.LayoutParams(
                 ActionBar.LayoutParams.WRAP_CONTENT,
                 ActionBar.LayoutParams.WRAP_CONTENT, Gravity.RIGHT or Gravity.CENTER_VERTICAL)
