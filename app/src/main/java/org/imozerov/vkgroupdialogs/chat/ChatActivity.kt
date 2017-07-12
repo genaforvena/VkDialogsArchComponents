@@ -16,6 +16,7 @@ import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 import android.view.Gravity
 import de.hdodenhof.circleimageview.CircleImageView
+import org.imozerov.vkgroupdialogs.repository.Resource
 
 
 class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
@@ -46,22 +47,32 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
         viewModel.setChatId(intent.getLongExtra(KEY_CHAT_ID, 0))
         viewModel.messages
-                .observe(this, Observer<List<Message>> {
-                    if (it == null) {
+                .observe(this, Observer<Resource<List<Message>>> {
+                    if (it == null || it.data == null) {
                         return@Observer
                     }
 
-                    adapter.setMessages(it)
+                    if (it.status == Resource.Status.ERROR) {
+                        // TODO handle error
+                        return@Observer
+                    }
+
+                    adapter.setMessages(it.data)
                     updateLoadingStatus(isDataPresent = true)
                 })
 
         viewModel.chatInfo
-                .observe(this, Observer<ChatInfo> {
-                    if (it == null) {
+                .observe(this, Observer<Resource<ChatInfo>> {
+                    if (it == null || it.data == null) {
                         return@Observer
                     }
 
-                    supportActionBar?.display(it)
+                    if (it.status == Resource.Status.ERROR) {
+                        // TODO handle error
+                        return@Observer
+                    }
+
+                    supportActionBar?.display(it.data)
                 })
     }
 

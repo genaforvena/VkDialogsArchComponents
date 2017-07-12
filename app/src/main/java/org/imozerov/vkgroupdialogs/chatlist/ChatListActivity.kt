@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.chat_list_activity.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
+import org.imozerov.vkgroupdialogs.repository.Resource
 import javax.inject.Inject
 
 class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
@@ -36,11 +37,17 @@ class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatListViewModel::class.java)
         viewModel.chats
-                .observe(this, Observer<List<ChatEntity>> {
-                    if (it == null) {
+                .observe(this, Observer<Resource<List<ChatEntity>>> {
+                    if (it == null || it.data == null) {
                         return@Observer
                     }
-                    adapter.setChats(it)
+
+                    if (it.status == Resource.Status.ERROR) {
+                        // TODO handle error
+                        return@Observer
+                    }
+
+                    adapter.setChats(it.data)
                     updateVisibility(isDataPresent = true)
                 })
     }

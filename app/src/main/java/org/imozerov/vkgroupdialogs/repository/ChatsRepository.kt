@@ -1,18 +1,27 @@
 package org.imozerov.vkgroupdialogs.repository
 
-import android.arch.lifecycle.LiveData
+import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.chat.ChatInfo
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import javax.inject.Inject
 
 class ChatsRepository @Inject
-constructor(private val chatDao: ChatDao) {
-    fun chats() : LiveData<List<ChatEntity>> {
-        return chatDao.loadChats()
-    }
+constructor(private val chatDao: ChatDao,
+            private val executors: Executors) {
+    fun chats() = object: NetworkBoundResource<List<ChatEntity>>(executors) {
+        override fun shouldFetch(data: List<ChatEntity>?): Boolean {
+            return true
+        }
 
-    fun chatInfo(chatId: Long) : LiveData<ChatInfo> {
-        return chatDao.loadChatInfo(chatId)
-    }
+        override fun loadFromDb() = chatDao.loadChats()
+    }.asLiveData()
+
+    fun chatInfo(chatId: Long) = object : NetworkBoundResource<ChatInfo>(executors) {
+        override fun loadFromDb() = chatDao.loadChatInfo(chatId)
+
+        override fun shouldFetch(data: ChatInfo?): Boolean {
+            return true
+        }
+    }.asLiveData()
 }

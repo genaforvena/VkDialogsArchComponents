@@ -9,6 +9,7 @@ import android.arch.lifecycle.Transformations
 import org.imozerov.vkgroupdialogs.repository.ChatsRepository
 
 import org.imozerov.vkgroupdialogs.repository.MessagesRepository
+import org.imozerov.vkgroupdialogs.repository.Resource
 import org.imozerov.vkgroupdialogs.util.AbsentLiveData
 import javax.inject.Inject
 
@@ -18,19 +19,19 @@ constructor(application: Application,
             messagesRepository: MessagesRepository) : AndroidViewModel(application) {
     private var chatId: MutableLiveData<Long> = MutableLiveData()
 
-    val messages: LiveData<List<Message>> =
-            Transformations.switchMap(chatId, Function<Long, LiveData<List<Message>>> {
+    val messages: LiveData<Resource<List<Message>>> =
+            Transformations.switchMap(chatId, Function<Long, LiveData<Resource<List<Message>>>> {
         if (it == 0L) {
-            return@Function AbsentLiveData.create<List<Message>>()
+            return@Function AbsentLiveData.create<Resource<List<Message>>>()
         } else {
             return@Function messagesRepository.messages(it)
         }
     })
 
-    val chatInfo: LiveData<ChatInfo> =
-            Transformations.switchMap(chatId, Function<Long, LiveData<ChatInfo>> {
+    val chatInfo: LiveData<Resource<ChatInfo>> =
+            Transformations.switchMap(chatId, Function<Long, LiveData<Resource<ChatInfo>>> {
         if (it == 0L) {
-            return@Function AbsentLiveData.create<ChatInfo>()
+            return@Function AbsentLiveData.create<Resource<ChatInfo>>()
         } else {
             return@Function chatsRepository.chatInfo(it)
         }
