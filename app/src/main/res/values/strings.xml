@@ -2,4 +2,7 @@
     <string name="app_name">Vk Group Dialogs</string>
     <string name="chat_list_label">Список бесед</string>
     <string name="loading_chats">Загружаем беседы...</string>
+
+    <!-- This should be kept private but for simplicity I' putting it here -->
+    <integer name="com_vk_sdk_AppId">6111308</integer>
 </resources>
