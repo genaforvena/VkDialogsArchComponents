@@ -38,7 +38,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
 
             if (response != null && response.response != null) {
                 executors.diskIO.execute({
-                    saveCallResult(parseResponse(response))
+                    processApiResponse(response)
                     executors.mainThread.execute({
                         // we specially request a new live data,
                         // otherwise we will get immediately last cached value,
@@ -63,10 +63,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
     }
 
     @WorkerThread
-    protected abstract fun parseResponse(response: ApiResponse): Any
-
-    @WorkerThread
-    protected abstract fun saveCallResult(item: Any)
+    protected abstract fun processApiResponse(response: ApiResponse)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean

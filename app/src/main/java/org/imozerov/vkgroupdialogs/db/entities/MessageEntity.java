@@ -15,10 +15,7 @@ import javax.annotation.Nullable;
                 @ForeignKey(entity = ChatEntity.class,
                         parentColumns = "id",
                         childColumns = "chatId",
-                        onDelete = ForeignKey.CASCADE),
-                @ForeignKey(entity = UserEntity.class,
-                        parentColumns = "id",
-                        childColumns = "senderId")
+                        onDelete = ForeignKey.CASCADE)
         })
 public class MessageEntity {
     @PrimaryKey
