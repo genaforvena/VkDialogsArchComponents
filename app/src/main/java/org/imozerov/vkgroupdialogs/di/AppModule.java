@@ -6,7 +6,9 @@ import android.arch.persistence.room.Room;
 
 import org.imozerov.vkgroupdialogs.db.AppDatabase;
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao;
+import org.imozerov.vkgroupdialogs.db.dao.ChatUserRelationDao;
 import org.imozerov.vkgroupdialogs.db.dao.MessageDao;
+import org.imozerov.vkgroupdialogs.db.dao.UserDao;
 
 import javax.inject.Singleton;
 
@@ -22,12 +24,22 @@ class AppModule {
     }
 
     @Singleton @Provides
-    ChatDao provideUserDao(AppDatabase db) {
+    ChatDao provideChatDao(AppDatabase db) {
         return db.chatDao();
     }
 
     @Singleton @Provides
-    MessageDao provideRepoDao(AppDatabase db) {
+    MessageDao provideMessageDao(AppDatabase db) {
         return db.messageDao();
+    }
+
+    @Singleton @Provides
+    UserDao provideUserDao(AppDatabase db) {
+        return db.userDao();
+    }
+
+    @Singleton @Provides
+    ChatUserRelationDao provideChatUserRelationDao(AppDatabase db) {
+        return db.chatUserRelationDao();
     }
 }

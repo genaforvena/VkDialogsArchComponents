@@ -1,4 +1,4 @@
-package org.imozerov.vkgroupdialogs.repository
+package org.imozerov.vkgroupdialogs.repository.fetchers
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
@@ -6,6 +6,7 @@ import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
 import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.api.ApiResponse
+import org.imozerov.vkgroupdialogs.repository.Resource
 
 /**
  * Kotlin version for class from https://github.com/googlesamples/android-architecture-components
