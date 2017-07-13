@@ -30,7 +30,7 @@ task clean(type: Delete) {
 ext {
     buildToolsVersion = "25.0.2"
     supportLibVersion = "25.3.1"
-    glideVersion = "4.0.0-RC1"
+    glideVersion = "3.8.0"
     daggerVersion = "2.11-rc2"
     retrofitVersion = "2.2.0"
     runnerVersion = "0.5"

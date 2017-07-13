@@ -38,7 +38,6 @@ dependencies {
     compile 'com.vk:androidsdk:1.6.5'
     compile 'com.google.code.gson:gson:2.2.+'
 
-    annotationProcessor 'com.github.bumptech.glide:compiler:' + rootProject.glideVersion
     annotationProcessor "android.arch.lifecycle:compiler:" + rootProject.archLifecycleVersion
     annotationProcessor "android.arch.persistence.room:compiler:" + rootProject.archRoomVersion
     annotationProcessor 'com.google.dagger:dagger-android-processor:' + rootProject.daggerVersion

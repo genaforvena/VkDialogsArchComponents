@@ -1,5 +1,8 @@
 package org.imozerov.vkgroupdialogs.repository.fetchers
 
+import android.app.Application
+import android.graphics.BitmapFactory
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.vk.sdk.api.VKError
@@ -13,11 +16,13 @@ import org.imozerov.vkgroupdialogs.db.dao.ChatUserRelationDao
 import org.imozerov.vkgroupdialogs.db.dao.UserDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
+import org.imozerov.vkgroupdialogs.util.CollageCreator
 import org.imozerov.vkgroupdialogs.util.batchDo
 import javax.inject.Inject
 
 class UsersFetcher @Inject
 constructor(private val appDatabase: AppDatabase,
+            private val application: Application,
             private val userDao: UserDao,
             private val chatUserRelationDao: ChatUserRelationDao,
             private val chatDao: ChatDao,
@@ -50,6 +55,15 @@ constructor(private val appDatabase: AppDatabase,
                                 userDao.insertAll(users)
                                 chatUserRelationDao.insertAll(chatUserRelations)
                             }
+
+                            val userImages = users.take(4).map {
+                                Glide.with(application).load(it.photoUrl)
+                                        .asBitmap().into(500, 500).get()
+                            }
+
+                            val collage = CollageCreator().createCollage(userImages)
+
+                            chatDao.setCollage(chatId, collage)
                         }
                     }
 

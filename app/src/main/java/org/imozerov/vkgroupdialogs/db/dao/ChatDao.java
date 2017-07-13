@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.graphics.Bitmap;
 
 import org.imozerov.vkgroupdialogs.db.model.ChatInfo;
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity;
@@ -28,4 +29,7 @@ public interface ChatDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ChatEntity> chats);
+
+    @Query("UPDATE chats SET avatar=:collage WHERE id=:chatId")
+    void setCollage(long chatId, Bitmap collage);
 }
