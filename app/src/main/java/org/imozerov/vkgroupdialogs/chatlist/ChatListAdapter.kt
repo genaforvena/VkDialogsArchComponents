@@ -30,7 +30,10 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
                 }
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                    return chats!![oldItemPosition].id == newChatList[newItemPosition].id
+                    val old = chats!![oldItemPosition]
+                    val new = newChatList[newItemPosition]
+                    return old.id == new.id &&
+                            (old.photoFallback == null && new.photoFallback != null)
                 }
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
