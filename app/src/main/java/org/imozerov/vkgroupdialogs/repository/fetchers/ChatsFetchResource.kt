@@ -17,7 +17,6 @@ import org.imozerov.vkgroupdialogs.db.entities.MessageEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
 import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.util.batchDo
-import java.util.*
 
 class ChatsFetchResource(private val userId: Long,
                          private val appDatabase: AppDatabase,

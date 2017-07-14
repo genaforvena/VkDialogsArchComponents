@@ -26,6 +26,7 @@ class MessagesFetchResource(executors: Executors,
         val messages = dialogResponse.response.items.map {
             val entity = MessageEntity()
             entity.fromMessage(it)
+            entity.isMine = it.senderId == currentUserId
             return@map entity
         }
 
@@ -51,6 +52,7 @@ class MessagesFetchResource(executors: Executors,
 
     companion object {
         private val GROUP_CHAT_MAGIC = 2000000000
+        private val currentUserId = VKAccessToken.currentToken().userId.toLong()
     }
 }
 
