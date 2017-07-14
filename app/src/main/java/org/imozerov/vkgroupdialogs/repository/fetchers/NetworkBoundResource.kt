@@ -16,7 +16,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
 
     private val result = MediatorLiveData<Resource<ResultType>>()
 
-    init {
+    fun fetch() : NetworkBoundResource<ResultType> {
         result.setValue(Resource.loading(null))
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
@@ -27,6 +27,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
                 result.addSource(dbSource) { newData -> result.setValue(Resource.success(newData)) }
             }
         }
+        return this
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {

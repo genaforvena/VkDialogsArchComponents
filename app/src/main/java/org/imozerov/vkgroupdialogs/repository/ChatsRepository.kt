@@ -2,7 +2,6 @@ package org.imozerov.vkgroupdialogs.repository
 
 import android.arch.lifecycle.Transformations
 import com.vk.sdk.VKAccessToken
-import com.vk.sdk.VKSdk
 import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.db.AppDatabase
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao
@@ -19,6 +18,7 @@ constructor(private val appDatabase: AppDatabase,
             private val messageDao: MessageDao,
             private val userDao: UserDao,
             private val executors: Executors,
+            // Keep reference
             private val usersFetcher: UsersFetcher) {
     private val userId = VKAccessToken.currentToken().userId.toLong()
 
@@ -29,7 +29,7 @@ constructor(private val appDatabase: AppDatabase,
     }
 
     fun chats() = ChatsFetchResource(userId, appDatabase, chatDao,
-            userDao, messageDao, executors).asLiveData()
+                userDao, messageDao, executors).fetch().asLiveData()
 
     fun chatInfo(chatId: Long) = Transformations.map(chatDao.loadChatInfo(chatId)) {
         return@map Resource.success(it)

@@ -9,7 +9,6 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.chat_list_activity.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.repository.Resource
 import javax.inject.Inject
@@ -51,6 +50,7 @@ class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
                     adapter.setChats(it.data)
                     updateVisibility(isDataPresent = true)
                 })
+        viewModel.fetch()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

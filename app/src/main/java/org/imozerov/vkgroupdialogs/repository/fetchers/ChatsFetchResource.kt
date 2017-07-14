@@ -18,7 +18,6 @@ import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
 import org.imozerov.vkgroupdialogs.db.entities.MessageEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
 import org.imozerov.vkgroupdialogs.db.model.Chat
-import org.imozerov.vkgroupdialogs.util.AbsentLiveData
 import org.imozerov.vkgroupdialogs.util.batchDo
 import java.util.*
 
@@ -76,14 +75,7 @@ class ChatsFetchResource(private val userId: Long,
 
     override fun shouldFetch(data: List<Chat>?) = true
 
-    override fun loadFromDb() : LiveData<List<Chat>> {
-        // TODO it's a shame to fix this missing DAO like this. need to investigate.
-        if (chatDao != null) {
-            return chatDao.loadChats()
-        } else {
-            return AbsentLiveData.create()
-        }
-    }
+    override fun loadFromDb() = chatDao.loadChats()
 }
 
 internal data class DialogsResponseJson(@SerializedName("response") val getDialogsAnswer: GetDialogsAnswerJson)
