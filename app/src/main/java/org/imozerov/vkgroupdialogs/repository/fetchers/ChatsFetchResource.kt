@@ -1,8 +1,10 @@
 package org.imozerov.vkgroupdialogs.repository.fetchers
 
 import android.arch.lifecycle.LiveData
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKApi
 import com.vk.sdk.api.VKApiConst
 import com.vk.sdk.api.VKParameters
@@ -39,6 +41,7 @@ class ChatsFetchResource(private val appDatabase: AppDatabase,
 
     override fun processApiResponse(response: ApiResponse) {
         val json = response.response!!.json.toString()
+        Log.v("ILYA", "$json")
         val dialogResponse = Gson().fromJson<DialogsResponse>(json, DialogsResponse::class.java)
         val groupMessages = dialogResponse.getDialogsAnswer.items
                 .filter {
@@ -85,13 +88,16 @@ data class DialogsResponse(@SerializedName("response") val getDialogsAnswer: Get
 data class GetDialogsAnswer(@SerializedName("items") val items: List<Chat>)
 data class Chat(@SerializedName("message") val message: Message)
 data class Message(@SerializedName("id") val id: Long,
-                   @SerializedName("user_id") val senderId: Long,
+                   @SerializedName("from_id") val senderId: Long,
                    @SerializedName("chat_id") val chatId: Long,
                    @SerializedName("users_count") val usersCount: Int,
                    @SerializedName("body") val text: String,
                    @SerializedName("date") val date: Long,
+                   @SerializedName("attachments") val attachments: List<Attachment>?,
                    @SerializedName("photo_50") val photo50: String?,
                    @SerializedName("title") val chatName: String?)
+data class Attachment(@SerializedName("photo") val photo: Photo?)
+data class Photo(@SerializedName("photo_604") val photoUrl: String?)
 
 
 fun ChatEntity.fromMessage(message: Message) {
@@ -110,6 +116,7 @@ fun MessageEntity.fromMessage(message: Message) {
     senderId = message.date
     chatId = message.chatId
     text = message.text
+    photo = message.attachments?.get(0)?.photo?.photoUrl
     // TODO We're trashing GC with with new calls
     date = java.util.Date(message.date)
 }
