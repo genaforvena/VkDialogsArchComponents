@@ -15,7 +15,8 @@ import java.util.List;
 public interface MessageDao {
     @Query("SELECT messages.*, users.photoUrl " +
             "FROM messages join users ON messages.senderId = users.id " +
-            "WHERE messages.chatId = :chatId")
+            "WHERE messages.chatId = :chatId " +
+            "ORDER BY date(messages.date) DESC")
     LiveData<List<Message>> loadMessages(long chatId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
