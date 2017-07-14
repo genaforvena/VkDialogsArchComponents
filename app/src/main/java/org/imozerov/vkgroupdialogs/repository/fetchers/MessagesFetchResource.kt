@@ -30,6 +30,7 @@ class MessagesFetchResource(executors: Executors,
             return@map entity
         }
 
+        // TODO update last message in chat (not supported by room for now) or create better query
         messageDao.insertAll(messages)
     }
 
