@@ -1,16 +1,9 @@
 package org.imozerov.vkgroupdialogs.db.model;
 
 import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
-import java.util.Date;
-
 import javax.annotation.Nullable;
-
-/**
- * Created by imozerov on 14/07/2017.
- */
 
 public class Chat {
     @ColumnInfo(name = "id")
@@ -23,7 +16,7 @@ public class Chat {
     @ColumnInfo(name = "lastMessageText")
     private String lastMessageText;
     @ColumnInfo(name = "lastMessageTime")
-    private Date lastMessageTime;
+    private long lastMessageTime;
     @ColumnInfo(name = "collage")
     private Bitmap photoFallback;
 
@@ -60,11 +53,11 @@ public class Chat {
         this.lastMessageText = lastMessageText;
     }
 
-    public Date getLastMessageTime() {
+    public long getLastMessageTime() {
         return lastMessageTime;
     }
 
-    public void setLastMessageTime(Date lastMessageTime) {
+    public void setLastMessageTime(long lastMessageTime) {
         this.lastMessageTime = lastMessageTime;
     }
 
@@ -84,13 +77,10 @@ public class Chat {
         Chat chat = (Chat) o;
 
         if (id != chat.id) return false;
+        if (lastMessageTime != chat.lastMessageTime) return false;
         if (name != null ? !name.equals(chat.name) : chat.name != null) return false;
         if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
-        if (lastMessageText != null ? !lastMessageText.equals(chat.lastMessageText) : chat.lastMessageText != null)
-            return false;
-        if (lastMessageTime != null ? !lastMessageTime.equals(chat.lastMessageTime) : chat.lastMessageTime != null)
-            return false;
-        return photoFallback != null ? photoFallback.equals(chat.photoFallback) : chat.photoFallback == null;
+        return lastMessageText != null ? lastMessageText.equals(chat.lastMessageText) : chat.lastMessageText == null;
     }
 
     @Override
@@ -99,8 +89,7 @@ public class Chat {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (photo != null ? photo.hashCode() : 0);
         result = 31 * result + (lastMessageText != null ? lastMessageText.hashCode() : 0);
-        result = 31 * result + (lastMessageTime != null ? lastMessageTime.hashCode() : 0);
-        result = 31 * result + (photoFallback != null ? photoFallback.hashCode() : 0);
+        result = 31 * result + (int) (lastMessageTime ^ (lastMessageTime >>> 32));
         return result;
     }
 }

@@ -6,11 +6,7 @@ import java.util.Locale
 
 
 object DateUtil {
-    fun chatLastMessage(date: Date?): String {
-        // TODO remove this! date in valid data should not be null!
-        if (date == null) {
-            return ""
-        }
+    fun chatLastMessage(date: Long): String {
         val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
         val formattedDate = simpleDateFormat.format(date)
         return formattedDate

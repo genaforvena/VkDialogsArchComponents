@@ -6,7 +6,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
 import org.imozerov.vkgroupdialogs.db.converters.BitmapConverter;
-import org.imozerov.vkgroupdialogs.db.converters.DateConverter;
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao;
 import org.imozerov.vkgroupdialogs.db.dao.ChatUserRelationDao;
 import org.imozerov.vkgroupdialogs.db.dao.MessageDao;
@@ -20,7 +19,7 @@ import org.imozerov.vkgroupdialogs.db.entities.UserEntity;
 @Database(entities = {ChatEntity.class,
         MessageEntity.class, UserEntity.class, ChatCollageEntity.class,
         ChatUserRelationEntity.class}, version = 1)
-@TypeConverters({DateConverter.class, BitmapConverter.class})
+@TypeConverters({BitmapConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "imozerov-vk-chat-db";
 

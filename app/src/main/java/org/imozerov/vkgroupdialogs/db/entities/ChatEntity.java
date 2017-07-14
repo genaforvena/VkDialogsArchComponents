@@ -3,9 +3,6 @@ package org.imozerov.vkgroupdialogs.db.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.graphics.Bitmap;
-
-import java.util.Date;
 
 import javax.annotation.Nullable;
 
@@ -18,7 +15,7 @@ public class ChatEntity {
     private String photo;
     private String lastMessageText;
     // TODO no reason to have it as date really. Can use long
-    private Date lastMessageTime;
+    private long lastMessageTime;
     private int usersCount;
 
     public long getId() {
@@ -45,11 +42,11 @@ public class ChatEntity {
         this.lastMessageText = lastMessageText;
     }
 
-    public Date getLastMessageTime() {
+    public long getLastMessageTime() {
         return lastMessageTime;
     }
 
-    public void setLastMessageTime(Date lastMessageTime) {
+    public void setLastMessageTime(long lastMessageTime) {
         this.lastMessageTime = lastMessageTime;
     }
 

@@ -96,7 +96,7 @@ internal fun ChatEntity.fromMessage(message: MessageJson) {
     id = message.chatId
     name = message.chatName
     lastMessageText = message.text
-    lastMessageTime = Date(message.date)
+    lastMessageTime = message.date
     usersCount = message.usersCount
     message.photo50?.apply {
         photo = message.photo50
@@ -109,6 +109,5 @@ internal fun MessageEntity.fromMessage(message: MessageJson) {
     chatId = message.chatId
     text = message.text
     photo = message.attachments?.get(0)?.photo?.photoUrl
-    // TODO We're trashing GC with with new calls
-    date = java.util.Date(message.date)
+    date = message.date
 }

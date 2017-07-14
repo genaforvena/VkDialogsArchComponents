@@ -1,11 +1,8 @@
 package org.imozerov.vkgroupdialogs.db.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-
-import java.util.Date;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +14,7 @@ public class MessageEntity {
     private String text;
     @Nullable
     private String photo;
-    private Date date;
+    private long date;
     private long chatId;
     private long senderId;
     private boolean isMine;
@@ -54,11 +51,11 @@ public class MessageEntity {
         this.senderId = senderId;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
