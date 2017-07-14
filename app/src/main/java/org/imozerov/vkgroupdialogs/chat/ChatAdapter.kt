@@ -89,9 +89,11 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
                     avatar?.visibility = View.VISIBLE
                     avatar?.load(senderPhoto)
                 }
-                photo?.apply {
+                if (photo != null) {
                     attachment.visibility = View.VISIBLE
                     attachment.load(photo)
+                } else {
+                    attachment.visibility = View.GONE
                 }
             }
         }
