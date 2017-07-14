@@ -15,7 +15,9 @@ import java.util.List;
 
 @Dao
 public interface ChatDao {
-    @Query("SELECT chats.*, collages.collage FROM chats LEFT JOIN collages ON chats.id = collages.id")
+    @Query("SELECT chats.*, collages.collage " +
+            "FROM chats LEFT JOIN collages ON chats.id = collages.id " +
+            "ORDER BY date(chats.lastMessageTime) DESC")
     LiveData<List<Chat>> loadChats();
 
     @Query("SELECT chats.id, chats.name, collages.collage, chats.photo, chats.usersCount " +
