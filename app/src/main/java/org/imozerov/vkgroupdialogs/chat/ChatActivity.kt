@@ -6,21 +6,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import dagger.android.AndroidInjection
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.chat_activity.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
-import javax.inject.Inject
-import android.view.Gravity
-import android.widget.ImageView
-import de.hdodenhof.circleimageview.CircleImageView
 import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.db.model.ChatInfo
 import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.repository.Resource
 import org.imozerov.vkgroupdialogs.util.load
+import javax.inject.Inject
 
 
 class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
@@ -98,10 +97,6 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
         if (chatInfo.photo != null) {
             setGroupImage { it.load(chatInfo.photo) }
         } else {
-            if (chatInfo.photoFallback == null) {
-                // todo ("remove this check when data available")
-                return;
-            }
             setGroupImage { it.setImageBitmap(chatInfo.photoFallback) }
         }
     }
