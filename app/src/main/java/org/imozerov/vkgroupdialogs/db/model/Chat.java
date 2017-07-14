@@ -75,4 +75,32 @@ public class Chat {
     public void setPhotoFallback(Bitmap photoFallback) {
         this.photoFallback = photoFallback;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Chat chat = (Chat) o;
+
+        if (id != chat.id) return false;
+        if (name != null ? !name.equals(chat.name) : chat.name != null) return false;
+        if (photo != null ? !photo.equals(chat.photo) : chat.photo != null) return false;
+        if (lastMessageText != null ? !lastMessageText.equals(chat.lastMessageText) : chat.lastMessageText != null)
+            return false;
+        if (lastMessageTime != null ? !lastMessageTime.equals(chat.lastMessageTime) : chat.lastMessageTime != null)
+            return false;
+        return photoFallback != null ? photoFallback.equals(chat.photoFallback) : chat.photoFallback == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (photo != null ? photo.hashCode() : 0);
+        result = 31 * result + (lastMessageText != null ? lastMessageText.hashCode() : 0);
+        result = 31 * result + (lastMessageTime != null ? lastMessageTime.hashCode() : 0);
+        result = 31 * result + (photoFallback != null ? photoFallback.hashCode() : 0);
+        return result;
+    }
 }

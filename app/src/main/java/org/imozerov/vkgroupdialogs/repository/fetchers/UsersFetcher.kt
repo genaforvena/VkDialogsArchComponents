@@ -17,6 +17,7 @@ import org.imozerov.vkgroupdialogs.db.dao.UserDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatCollageEntity
 import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
+import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.util.CollageCreator
 import org.imozerov.vkgroupdialogs.util.batchDo
 import javax.inject.Inject
@@ -28,9 +29,30 @@ constructor(private val appDatabase: AppDatabase,
             private val chatUserRelationDao: ChatUserRelationDao,
             private val chatDao: ChatDao,
             private val executors: Executors) {
+    private var cachedList: List<Long> = listOf()
+
     fun start() {
         chatDao.loadChats().observeForever {
-            it?.forEach {
+            if (it == null) {
+                return@observeForever
+            }
+
+            val ids = it.map {
+                it.id
+            }
+
+            if (cachedList.containsAll(ids)) {
+                return@observeForever
+            }
+
+            cachedList = ids
+
+            // TODO make batch request
+            // Can't pass vararg here :(
+            // requests?.apply {
+            //  VKBatchRequest(it)
+            // }
+            it.forEach {
                 val chatId = it.id
                 val request = VKRequest("messages.getChatUsers",
                         VKParameters.from("chat_id", chatId, "fields", "photo"))
@@ -76,11 +98,6 @@ constructor(private val appDatabase: AppDatabase,
                     }
                 })
             }
-
-            // Can't pass vararg here :(
-            // requests?.apply {
-            //  VKBatchRequest(it)
-            // }
         }
     }
 }
