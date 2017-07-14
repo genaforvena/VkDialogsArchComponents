@@ -1,11 +1,8 @@
 package org.imozerov.vkgroupdialogs.repository.fetchers
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.vk.sdk.VKAccessToken
-import com.vk.sdk.api.VKApi
-import com.vk.sdk.api.VKError
 import com.vk.sdk.api.VKParameters
 import com.vk.sdk.api.VKRequest
 import org.imozerov.vkgroupdialogs.Executors
@@ -17,8 +14,9 @@ import org.imozerov.vkgroupdialogs.db.model.Message
 
 
 class MessagesFetchResource(executors: Executors,
-                            private val chatId: Long,
-                            private val messageDao: MessageDao) :
+                                 private val messageDao: MessageDao,
+                                 private val chatId: Long,
+                                 private val offset: Int) :
         NetworkBoundResource<List<Message>>(executors) {
     override fun processApiResponse(response: ApiResponse) {
         val json = response.response!!.json.toString()
@@ -41,7 +39,8 @@ class MessagesFetchResource(executors: Executors,
 
     override fun createCall() = ApiCall(VKRequest("messages.getHistory",
             VKParameters.from("peer_id", getGroupChatPeerId(chatId),
-                    "count", MESSAGES_TO_FETCH_COUNT)))
+                    "count", MESSAGES_TO_FETCH_COUNT,
+                    "offset", offset)))
 
     private fun getGroupChatPeerId(chatId: Long) = GROUP_CHAT_MAGIC + chatId
 

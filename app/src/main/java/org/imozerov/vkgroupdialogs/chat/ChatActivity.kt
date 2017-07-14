@@ -71,6 +71,8 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
                     updateLoadingStatus(isDataPresent = true)
                 })
 
+        adapter.setOnAlmostReachedTopLister { offset -> viewModel.load(offset) }
+
         viewModel.chatInfo
                 .observe(this, Observer<Resource<ChatInfo>> {
                     if (it == null || it.data == null) {

@@ -21,6 +21,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     private var messages: List<Message>? = null
+    private var onAlmostReachedTopListener: ((Int) -> Unit)? = null
 
     fun setMessages(newChatList: List<Message>) {
         if (messages == null) {
@@ -60,6 +61,14 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         holder.bind(messages!![position], previousSenderId(position))
+
+        if (position + 1 == messages?.count()) {
+            onAlmostReachedTopListener?.invoke(messages!!.size)
+        }
+    }
+
+    fun setOnAlmostReachedTopLister(listener: (Int) -> Unit) {
+        onAlmostReachedTopListener = listener
     }
 
     private fun previousSenderId(position: Int) =
