@@ -62,7 +62,12 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
                         return@Observer
                     }
 
+                    val needToScrollDown  = adapter.itemCount < 3
+
                     adapter.setMessages(it.data)
+                    if (needToScrollDown) {
+                        chat.scrollToPosition(0)
+                    }
                     updateLoadingStatus(isDataPresent = true)
                 })
 
