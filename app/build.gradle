@@ -9,7 +9,7 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "org.imozerov.vkgroupdialogs"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -37,6 +37,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:' + rootProject.glideVersion
     compile 'com.vk:androidsdk:1.6.9'
     compile 'com.google.code.gson:gson:2.2.+'
+    compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.7'
 
     // No messenger without emojis! Sadly only some of them are supported in bundled version
     compile "com.android.support:support-emoji-bundled:26.0.0-beta2"

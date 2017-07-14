@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import me.himanshusoni.chatmessageview.ChatMessageView
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.util.DateUtil
@@ -87,6 +88,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         private val time: TextView = view.findViewById(R.id.message_time)
         private val avatar: ImageView? = view.findViewById(R.id.message_user_avatar)
         private val attachment: ImageView = view.findViewById(R.id.message_photo)
+        private val messageContainer: ChatMessageView = view.findViewById(R.id.message_container)
 
         fun bind(message: Message, prevMessageSenderId: Long) {
             with(message) {
@@ -94,9 +96,11 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
                 time.text = DateUtil.chatLastMessage(date)
                 if (prevMessageSenderId == senderId) {
                     avatar?.visibility = View.INVISIBLE
+                    messageContainer.isShowArrow = false
                 } else {
                     avatar?.visibility = View.VISIBLE
                     avatar?.load(senderPhoto)
+                    messageContainer.isShowArrow = true
                 }
                 if (photo != null) {
                     attachment.visibility = View.VISIBLE

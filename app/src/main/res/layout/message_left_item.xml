@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="left"
@@ -10,27 +11,26 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/message_user_avatar"
-        android:src="@drawable/ic_face_black_48dp"
         android:layout_width="@dimen/chat_icon_size"
         android:layout_height="@dimen/chat_icon_size" />
 
-    <!-- TODO This layout should be replaced with custom view. As it duplicated -->
-    <LinearLayout
+    <me.himanshusoni.chatmessageview.ChatMessageView
         android:id="@+id/message_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_weight="1"
-        android:background="@drawable/chat_left"
-        android:orientation="vertical"
         android:paddingBottom="4dp"
         android:paddingLeft="12dp"
         android:paddingRight="2dp"
-        android:paddingTop="4dp">
+        android:paddingTop="4dp"
+        app:cmv_backgroundColor="@android:color/white"
+        app:cmv_backgroundColorPressed="@android:color/white"
+        app:cmv_cornerRadius="@dimen/chat_msg_corner_radius">
 
         <android.support.text.emoji.widget.EmojiTextView
             android:id="@+id/message_body"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:paddingLeft="6dp"
@@ -42,25 +42,27 @@
             android:id="@+id/message_photo"
             android:layout_width="@dimen/message_photo_width"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
-    </LinearLayout>
+            android:layout_below="@+id/message_body"
+            android:visibility="gone" />
+    </me.himanshusoni.chatmessageview.ChatMessageView>
 
     <TextView
         android:id="@+id/message_time"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/chat_sub_info_text_size"
-        android:textColor="@color/chat_date_color" />
+        android:gravity="bottom"
+        android:textColor="@color/chat_date_color"
+        android:textSize="@dimen/chat_sub_info_text_size" />
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:measureAllChildren="false"
-        android:minWidth="100dp"></FrameLayout>
+        android:minWidth="100dp" />
 
 </LinearLayout>

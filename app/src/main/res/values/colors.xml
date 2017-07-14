@@ -7,5 +7,6 @@
     <color name="chat_sub_info_text_color">#5e5e5e</color>
 
     <color name="chat_bg">#7da5af</color>
+    <color name="chat_message_bg">#1287DE</color>
     <color name="chat_date_color">#686767</color>
 </resources>

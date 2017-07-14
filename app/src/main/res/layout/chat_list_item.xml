@@ -1,57 +1,57 @@
 <!-- TODO This layout is heavy and should be replaced with constrains layout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/chat_image"
-        android:src="@drawable/ic_group_work_black_48dp"
         android:layout_width="@dimen/chat_icon_size"
         android:layout_height="@dimen/chat_icon_size"
         android:scaleType="centerCrop" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:paddingBottom="4dp">
 
             <android.support.text.emoji.widget.EmojiTextView
+                android:id="@+id/chat_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/chat_name"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="1"
+                android:paddingRight="8dp"
                 android:textSize="@dimen/chat_info_text_size"
-                android:textStyle="bold"
-                android:paddingRight="8dp" />
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/chat_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/chat_date"
-                android:textSize="@dimen/chat_sub_info_text_size"
-                android:textColor="@color/chat_sub_info_text_color" />
+                android:textColor="@color/chat_sub_info_text_color"
+                android:textSize="@dimen/chat_sub_info_text_size" />
         </LinearLayout>
 
         <android.support.text.emoji.widget.EmojiTextView
+            android:id="@+id/chat_last_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/chat_last_message"
             android:ellipsize="end"
             android:lines="1"
-            android:textSize="@dimen/chat_sub_info_text_size"
-            android:textColor="@color/chat_sub_info_text_color" />
+            android:textColor="@color/chat_sub_info_text_color"
+            android:textSize="@dimen/chat_sub_info_text_size" />
 
     </LinearLayout>
 
