@@ -88,7 +88,7 @@ data class DialogsResponse(@SerializedName("response") val getDialogsAnswer: Get
 data class GetDialogsAnswer(@SerializedName("items") val items: List<Chat>)
 data class Chat(@SerializedName("message") val message: Message)
 data class Message(@SerializedName("id") val id: Long,
-                   @SerializedName("from_id") val senderId: Long,
+                   @SerializedName("user_id") val senderId: Long,
                    @SerializedName("chat_id") val chatId: Long,
                    @SerializedName("users_count") val usersCount: Int,
                    @SerializedName("body") val text: String,
@@ -113,7 +113,7 @@ fun ChatEntity.fromMessage(message: Message) {
 
 fun MessageEntity.fromMessage(message: Message) {
     id = message.id
-    senderId = message.date
+    senderId = message.senderId
     chatId = message.chatId
     text = message.text
     photo = message.attachments?.get(0)?.photo?.photoUrl
