@@ -41,18 +41,13 @@ class MessagesFetchResource(executors: Executors,
 
     override fun createCall() = ApiCall(VKRequest("messages.getHistory",
             VKParameters.from("peer_id", getGroupChatPeerId(chatId),
-                    // This hopefully will be ignored. If not provided error is returned
-                    "user_id", VKAccessToken.currentToken().userId)))
-
-    override fun onFetchFailed(error: VKError?) {
-        Log.e("ILYA", "fetch of messages from backend failed with $error")
-        super.onFetchFailed(error)
-    }
+                    "count", MESSAGES_TO_FETCH_COUNT)))
 
     private fun getGroupChatPeerId(chatId: Long) = GROUP_CHAT_MAGIC + chatId
 
     companion object {
         private val GROUP_CHAT_MAGIC = 2000000000
+        private val MESSAGES_TO_FETCH_COUNT = 50
         private val currentUserId = VKAccessToken.currentToken().userId.toLong()
     }
 }
