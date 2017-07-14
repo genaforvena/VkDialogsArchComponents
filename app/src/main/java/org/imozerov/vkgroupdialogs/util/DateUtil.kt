@@ -8,7 +8,7 @@ import java.util.Locale
 object DateUtil {
     fun chatLastMessage(date: Long): String {
         val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
-        val formattedDate = simpleDateFormat.format(date)
+        val formattedDate = simpleDateFormat.format(date + 28800000)
         return formattedDate
     }
 }
