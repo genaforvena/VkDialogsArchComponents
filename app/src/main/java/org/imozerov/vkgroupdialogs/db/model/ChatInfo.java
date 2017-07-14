@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 
 import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -15,7 +16,7 @@ public class ChatInfo {
     private long id;
     @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "avatar")
+    @ColumnInfo(name = "collage")
     private Bitmap photoFallback;
     @Nullable
     @ColumnInfo(name = "photo")

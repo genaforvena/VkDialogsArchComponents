@@ -16,6 +16,7 @@ import javax.inject.Inject
 import android.view.Gravity
 import android.widget.ImageView
 import de.hdodenhof.circleimageview.CircleImageView
+import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.db.model.ChatInfo
 import org.imozerov.vkgroupdialogs.db.model.Message
 import org.imozerov.vkgroupdialogs.repository.Resource
@@ -131,7 +132,7 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
     }
 
     companion object {
-        fun forChat(activity: Activity, chat: ChatEntity): Intent {
+        fun forChat(activity: Activity, chat: Chat): Intent {
             val intent = Intent(activity, ChatActivity::class.java)
             intent.putExtra(KEY_CHAT_ID, chat.id)
             return intent

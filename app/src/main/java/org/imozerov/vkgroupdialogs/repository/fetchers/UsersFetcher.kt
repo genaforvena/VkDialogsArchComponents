@@ -14,6 +14,7 @@ import org.imozerov.vkgroupdialogs.db.AppDatabase
 import org.imozerov.vkgroupdialogs.db.dao.ChatDao
 import org.imozerov.vkgroupdialogs.db.dao.ChatUserRelationDao
 import org.imozerov.vkgroupdialogs.db.dao.UserDao
+import org.imozerov.vkgroupdialogs.db.entities.ChatCollageEntity
 import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
 import org.imozerov.vkgroupdialogs.util.CollageCreator
@@ -62,8 +63,11 @@ constructor(private val appDatabase: AppDatabase,
                             }
 
                             val collage = CollageCreator().createCollage(userImages)
+                            val collageEntity = ChatCollageEntity()
+                            collageEntity.id = chatId
+                            collageEntity.collage = collage
 
-                            chatDao.setCollage(chatId, collage)
+                            chatDao.insertCollage(collageEntity)
                         }
                     }
 
@@ -81,14 +85,14 @@ constructor(private val appDatabase: AppDatabase,
     }
 }
 
-data class UsersResponse(@SerializedName("response") val getUsersAnswer: List<User>)
-data class User(@SerializedName("id") val id: Long,
+internal data class UsersResponse(@SerializedName("response") val getUsersAnswer: List<User>)
+internal data class User(@SerializedName("id") val id: Long,
                 @SerializedName("last_name") val lastName: String,
                 @SerializedName("first_name") val firstName: String,
                 @SerializedName("photo") val photo: String)
 
 
-fun UserEntity.fromUser(user: User) {
+internal fun UserEntity.fromUser(user: User) {
     id = user.id
     firstName = user.firstName
     lastName = user.lastName

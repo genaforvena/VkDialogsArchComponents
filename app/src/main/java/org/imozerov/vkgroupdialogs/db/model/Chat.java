@@ -1,7 +1,6 @@
-package org.imozerov.vkgroupdialogs.db.entities;
+package org.imozerov.vkgroupdialogs.db.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.PrimaryKey;
 import android.graphics.Bitmap;
 
@@ -9,17 +8,24 @@ import java.util.Date;
 
 import javax.annotation.Nullable;
 
-@Entity(tableName = "chats", indices = { @Index("id") })
-public class ChatEntity {
-    @PrimaryKey
+/**
+ * Created by imozerov on 14/07/2017.
+ */
+
+public class Chat {
+    @ColumnInfo(name = "id")
     private long id;
+    @ColumnInfo(name = "name")
     private String name;
     @Nullable
+    @ColumnInfo(name = "photo")
     private String photo;
+    @ColumnInfo(name = "lastMessageText")
     private String lastMessageText;
-    // TODO no reason to have it as date really. Can use long
+    @ColumnInfo(name = "lastMessageTime")
     private Date lastMessageTime;
-    private int usersCount;
+    @ColumnInfo(name = "collage")
+    private Bitmap photoFallback;
 
     public long getId() {
         return id;
@@ -35,6 +41,15 @@ public class ChatEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Nullable
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(@Nullable String photo) {
+        this.photo = photo;
     }
 
     public String getLastMessageText() {
@@ -53,20 +68,11 @@ public class ChatEntity {
         this.lastMessageTime = lastMessageTime;
     }
 
-    @Nullable
-    public String getPhoto() {
-        return photo;
+    public Bitmap getPhotoFallback() {
+        return photoFallback;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public int getUsersCount() {
-        return usersCount;
-    }
-
-    public void setUsersCount(int usersCount) {
-        this.usersCount = usersCount;
+    public void setPhotoFallback(Bitmap photoFallback) {
+        this.photoFallback = photoFallback;
     }
 }

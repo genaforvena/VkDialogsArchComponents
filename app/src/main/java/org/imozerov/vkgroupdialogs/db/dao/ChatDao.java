@@ -5,31 +5,27 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import android.graphics.Bitmap;
 
-import org.imozerov.vkgroupdialogs.db.model.ChatInfo;
+import org.imozerov.vkgroupdialogs.db.entities.ChatCollageEntity;
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity;
-import org.imozerov.vkgroupdialogs.db.entities.UserEntity;
+import org.imozerov.vkgroupdialogs.db.model.Chat;
+import org.imozerov.vkgroupdialogs.db.model.ChatInfo;
 
 import java.util.List;
 
 @Dao
 public interface ChatDao {
-    @Query("SELECT * FROM chats")
-    LiveData<List<ChatEntity>> loadChats();
+    @Query("SELECT chats.*, collages.collage FROM chats LEFT JOIN collages ON chats.id = collages.id")
+    LiveData<List<Chat>> loadChats();
 
-    @Query("SELECT chats.id, chats.name, chats.avatar, chats.photo, chats.usersCount " +
-            "FROM chats WHERE id = :chatId")
+    @Query("SELECT chats.id, chats.name, collages.collage, chats.photo, chats.usersCount " +
+            "FROM chats JOIN collages ON chats.id = collages.id " +
+            "WHERE chats.id = :chatId")
     LiveData<ChatInfo> loadChatInfo(long chatId);
-
-    @Query("SELECT users.* " +
-            "FROM chat_to_user JOIN users ON chat_to_user.userId = users.id " +
-            "WHERE chat_to_user.chatId = :chatId")
-    LiveData<List<UserEntity>> loadUsers(long chatId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ChatEntity> chats);
 
-    @Query("UPDATE chats SET avatar=:collage WHERE id=:chatId")
-    void setCollage(long chatId, Bitmap collage);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertCollage(ChatCollageEntity collageEntity);
 }

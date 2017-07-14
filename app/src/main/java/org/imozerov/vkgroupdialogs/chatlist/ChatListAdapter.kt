@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.chat_list_item.view.*
 import org.imozerov.vkgroupdialogs.R
-import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
+import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.util.DateUtil
 import org.imozerov.vkgroupdialogs.util.load
 
 class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
         RecyclerView.Adapter<ChatListAdapter.ChatViewHolder>() {
-    private var chats: List<ChatEntity>? = null
+    private var chats: List<Chat>? = null
 
-    fun setChats(newChatList: List<ChatEntity>) {
+    fun setChats(newChatList: List<Chat>) {
         if (chats == null) {
             chats = newChatList
             notifyItemRangeInserted(0, newChatList.size)
@@ -56,7 +56,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
     override fun getItemCount() = if (chats == null) 0 else chats!!.size
 
     class ChatViewHolder(view: View, private val chatClickCallback: ChatClickCallback) : RecyclerView.ViewHolder(view) {
-        fun bind(chat: ChatEntity) {
+        fun bind(chat: Chat) {
             with(chat) {
                 itemView.chat_name.text  = name
                 itemView.chat_last_message.text = lastMessageText
@@ -64,7 +64,7 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
                 if (photo != null) {
                     itemView.chat_image.load(photo)
                 } else {
-                    itemView.chat_image.setImageBitmap(avatar)
+                    itemView.chat_image.setImageBitmap(photoFallback)
                 }
                 itemView.setOnClickListener { chatClickCallback.onClick(chat) }
             }
@@ -73,5 +73,5 @@ class ChatListAdapter(private val chatClickCallback: ChatClickCallback) :
 }
 
 interface ChatClickCallback {
-    fun onClick(chat: ChatEntity)
+    fun onClick(chat: Chat)
 }

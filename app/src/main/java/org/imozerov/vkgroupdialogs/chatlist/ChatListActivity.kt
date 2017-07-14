@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.chat_list_activity.*
 import org.imozerov.vkgroupdialogs.Navigator
 import org.imozerov.vkgroupdialogs.R
 import org.imozerov.vkgroupdialogs.db.entities.ChatEntity
+import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.repository.Resource
 import javax.inject.Inject
 
@@ -37,7 +38,7 @@ class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatListViewModel::class.java)
         viewModel.chats
-                .observe(this, Observer<Resource<List<ChatEntity>>> {
+                .observe(this, Observer<Resource<List<Chat>>> {
                     if (it == null || it.data == null) {
                         return@Observer
                     }
@@ -67,7 +68,7 @@ class ChatListActivity : AppCompatActivity(), LifecycleRegistryOwner {
     }
 
     private val onChatClickCallback = object : ChatClickCallback {
-        override fun onClick(chat: ChatEntity) {
+        override fun onClick(chat: Chat) {
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
                 navigator.navigateToChat(chat)
             }

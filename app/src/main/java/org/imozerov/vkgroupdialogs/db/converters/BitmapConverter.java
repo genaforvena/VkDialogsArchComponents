@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 
+import javax.annotation.Nullable;
+
 public class BitmapConverter {
     @TypeConverter
     public static byte[] toByteArray(Bitmap bitmap) {
@@ -18,7 +20,11 @@ public class BitmapConverter {
     }
 
     @TypeConverter
+    @Nullable
     public static Bitmap toBitmap(byte[] data) {
+        if (data == null) {
+            return null;
+        }
         return BitmapFactory.decodeByteArray(data, 0, data.length);
     }
 }
