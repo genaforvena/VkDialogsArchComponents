@@ -10,13 +10,7 @@ import java.util.Date;
 import javax.annotation.Nullable;
 
 @Entity(tableName = "messages",
-        indices = {@Index("id"), @Index("chatId")},
-        foreignKeys = {
-                @ForeignKey(entity = ChatEntity.class,
-                        parentColumns = "id",
-                        childColumns = "chatId",
-                        onDelete = ForeignKey.CASCADE)
-        })
+        indices = {@Index("id")})
 public class MessageEntity {
     @PrimaryKey
     private long id;

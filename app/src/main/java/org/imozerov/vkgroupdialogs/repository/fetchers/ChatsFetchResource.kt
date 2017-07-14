@@ -1,7 +1,5 @@
 package org.imozerov.vkgroupdialogs.repository.fetchers
 
-import android.arch.lifecycle.LiveData
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.vk.sdk.api.VKApi
@@ -41,7 +39,6 @@ class ChatsFetchResource(private val userId: Long,
 
     override fun processApiResponse(response: ApiResponse) {
         val json = response.response!!.json.toString()
-        Log.v("ILYA", "$json")
         val dialogResponse = Gson().fromJson<DialogsResponseJson>(json, DialogsResponseJson::class.java)
         val groupMessages = dialogResponse.getDialogsAnswer.items
                 .filter {
@@ -73,6 +70,7 @@ class ChatsFetchResource(private val userId: Long,
         }
     }
 
+    // TODO implement logic to skip some fetches
     override fun shouldFetch(data: List<Chat>?) = true
 
     override fun loadFromDb() = chatDao.loadChats()

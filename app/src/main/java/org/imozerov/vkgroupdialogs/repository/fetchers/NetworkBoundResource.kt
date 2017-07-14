@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
+import com.vk.sdk.api.VKError
 import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.api.ApiResponse
 import org.imozerov.vkgroupdialogs.repository.Resource
@@ -50,7 +51,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
                     })
                 })
             } else {
-                onFetchFailed()
+                onFetchFailed(response?.error)
                 result.addSource(dbSource)
                             { newData ->
                                 result.setValue(Resource.error(response?.error?.errorMessage?: "No error message", newData)) }
@@ -58,7 +59,7 @@ abstract class NetworkBoundResource<ResultType> @MainThread
         }
     }
 
-    protected fun onFetchFailed() {}
+    protected open fun onFetchFailed(error: VKError?) {}
 
     fun asLiveData(): LiveData<Resource<ResultType>> {
         return result

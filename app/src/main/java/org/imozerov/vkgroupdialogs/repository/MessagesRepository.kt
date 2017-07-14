@@ -1,13 +1,13 @@
 package org.imozerov.vkgroupdialogs.repository
 
-import android.arch.lifecycle.Transformations
+import org.imozerov.vkgroupdialogs.Executors
 import org.imozerov.vkgroupdialogs.db.dao.MessageDao
+import org.imozerov.vkgroupdialogs.repository.fetchers.MessagesFetchResource
 import javax.inject.Inject
 
 class MessagesRepository @Inject
-constructor(private val messageDao: MessageDao) {
-
-    fun messages(chatId: Long) = Transformations.map(messageDao.loadMessages(chatId)) {
-        Resource.success(it)
-    }
+constructor(private val messageDao: MessageDao,
+            private val executors: Executors) {
+    fun messages(chatId: Long) = MessagesFetchResource(executors, chatId, messageDao)
+            .fetch().asLiveData()
 }
