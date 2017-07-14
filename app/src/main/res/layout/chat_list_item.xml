@@ -1,3 +1,4 @@
+<!-- TODO This layout is heavy and should be replaced with constrains layout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
