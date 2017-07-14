@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKApi
 import com.vk.sdk.api.VKApiConst
@@ -22,7 +23,8 @@ import org.imozerov.vkgroupdialogs.util.AbsentLiveData
 import org.imozerov.vkgroupdialogs.util.batchDo
 import java.util.*
 
-class ChatsFetchResource(private val appDatabase: AppDatabase,
+class ChatsFetchResource(private val userId: Long,
+                         private val appDatabase: AppDatabase,
                          private val chatDao: ChatDao,
                          private val userDao: UserDao,
                          private val messageDao: MessageDao,
@@ -56,6 +58,7 @@ class ChatsFetchResource(private val appDatabase: AppDatabase,
         val messageEntities = groupMessages.map {
             val messageEntity = MessageEntity()
             messageEntity.fromMessage(it.message)
+            messageEntity.isMine = userId == it.message.senderId
             return@map messageEntity
         }
 
