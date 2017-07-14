@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:paddingBottom="4dp">
 
-            <TextView
+            <android.support.text.emoji.widget.EmojiTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/chat_name"
@@ -44,7 +44,7 @@
                 android:textColor="@color/chat_sub_info_text_color" />
         </LinearLayout>
 
-        <TextView
+        <android.support.text.emoji.widget.EmojiTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/chat_last_message"

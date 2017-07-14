@@ -2,6 +2,8 @@ package org.imozerov.vkgroupdialogs;
 
 import android.app.Activity;
 import android.app.Application;
+import android.support.text.emoji.EmojiCompat;
+import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 
 import com.facebook.stetho.Stetho;
 import com.vk.sdk.VKAccessToken;
@@ -40,6 +42,9 @@ public class VkDialogApp extends Application implements HasActivityInjector {
                 .build()
                 .inject(this);
         Stetho.initializeWithDefaults(this);
+
+        EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
+        EmojiCompat.init(config);
 
         vkAccessTokenTracker.startTracking();
         VKSdk.initialize(this);
