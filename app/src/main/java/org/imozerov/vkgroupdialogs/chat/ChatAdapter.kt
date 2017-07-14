@@ -14,8 +14,10 @@ import org.imozerov.vkgroupdialogs.util.load
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     companion object {
-        val OTHER = 455
-        val MY = 335
+        private val OTHER = 455
+        private val MY = 335
+
+        private val NO_ID = 0L
     }
 
     private var messages: List<Message>? = null
@@ -57,8 +59,11 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        holder.bind(messages!![position])
+        holder.bind(messages!![position], previousSenderId(position))
     }
+
+    private fun previousSenderId(position: Int) =
+            if (position != messages!!.lastIndex) { messages!![position + 1].senderId } else NO_ID
 
     override fun getItemViewType(position: Int): Int {
         val message = messages!![position]
@@ -74,11 +79,16 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
         private val avatar: ImageView? = view.findViewById(R.id.message_user_avatar)
         private val attachment: ImageView = view.findViewById(R.id.message_photo)
 
-        fun bind(message: Message) {
+        fun bind(message: Message, prevMessageSenderId: Long) {
             with(message) {
                 body.text  = text
                 time.text = DateUtil.chatLastMessage(date)
-                avatar?.load(senderPhoto)
+                if (prevMessageSenderId == senderId) {
+                    avatar?.visibility = View.INVISIBLE
+                } else {
+                    avatar?.visibility = View.VISIBLE
+                    avatar?.load(senderPhoto)
+                }
                 photo?.apply {
                     attachment.visibility = View.VISIBLE
                     attachment.load(photo)

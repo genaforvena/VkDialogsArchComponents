@@ -20,6 +20,8 @@ public class Message {
     private String photo;
     @ColumnInfo(name = "photoUrl")
     private String senderPhoto;
+    @ColumnInfo(name = "senderId")
+    private long senderId;
 
     public long getId() {
         return id;
@@ -68,6 +70,14 @@ public class Message {
 
     public void setPhoto(@Nullable String photo) {
         this.photo = photo;
+    }
+
+    public long getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(long senderId) {
+        this.senderId = senderId;
     }
 
     @Override
