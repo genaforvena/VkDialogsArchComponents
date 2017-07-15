@@ -2,7 +2,6 @@
     <string name="app_name">Vk Group Dialogs</string>
     <string name="chat_list_label">Список бесед</string>
     <string name="loading_chats">Загружаем беседы...</string>
-    <string name="chat_info_users_count_label">участников</string>
 
 
     <!-- This should be kept private but for simplicity I' putting it here -->

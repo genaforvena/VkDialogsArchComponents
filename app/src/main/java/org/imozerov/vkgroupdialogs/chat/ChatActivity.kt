@@ -38,8 +38,6 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
             lazy { resources.getDimensionPixelSize(R.dimen.chat_user_group_image_margin_right) }
     private val groupIconMarginRight by
             lazy { resources.getDimensionPixelSize(R.dimen.chat_user_group_image_padding) }
-    private val usersCountLabel by
-            lazy { resources.getString(R.string.chat_info_users_count_label) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -101,8 +99,9 @@ class ChatActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     private fun ActionBar.display(chatInfo: ChatInfo) {
         title = chatInfo.name
-        // TODO use plurals instead (work ok for russian but who knows for other languages)
-        subtitle = "${chatInfo.usersCount} $usersCountLabel"
+        subtitle = resources.getQuantityString(R.plurals.chat_info_users_count_label,
+                chatInfo.usersCount,
+                chatInfo.usersCount)
 
         if (chatInfo.photo != null) {
             setGroupImage { it.load(chatInfo.photo) }

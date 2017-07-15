@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TODO define this in ru lang-pack -->
+    <plurals name="chat_info_users_count_label">
+        <item quantity="zero">%d участников</item>
+        <item quantity="one">%d участник</item>
+        <item quantity="two">%d участника</item>
+        <item quantity="few">%d участника</item>
+        <item quantity="other">%d участников</item>
+    </plurals>
+</resources>
