@@ -1,11 +1,10 @@
 package org.imozerov.vkgroupdialogs.repository.fetchers
 
 import android.app.Application
-import android.graphics.BitmapFactory
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import com.vk.sdk.api.VKError
+import com.vk.sdk.api.VKBatchRequest
 import com.vk.sdk.api.VKParameters
 import com.vk.sdk.api.VKRequest
 import com.vk.sdk.api.VKResponse
@@ -17,7 +16,6 @@ import org.imozerov.vkgroupdialogs.db.dao.UserDao
 import org.imozerov.vkgroupdialogs.db.entities.ChatCollageEntity
 import org.imozerov.vkgroupdialogs.db.entities.ChatUserRelationEntity
 import org.imozerov.vkgroupdialogs.db.entities.UserEntity
-import org.imozerov.vkgroupdialogs.db.model.Chat
 import org.imozerov.vkgroupdialogs.util.CollageCreator
 import org.imozerov.vkgroupdialogs.util.batchDo
 import javax.inject.Inject
@@ -29,7 +27,7 @@ constructor(private val appDatabase: AppDatabase,
             private val chatUserRelationDao: ChatUserRelationDao,
             private val chatDao: ChatDao,
             private val executors: Executors) {
-    private var cachedList: List<Long> = listOf()
+    private var lastFetchedIds: List<Long> = listOf()
 
     fun start() {
         chatDao.loadChats().observeForever {
@@ -41,23 +39,21 @@ constructor(private val appDatabase: AppDatabase,
                 it.id
             }
 
-            if (cachedList.containsAll(ids)) {
+            if (lastFetchedIds.containsAll(ids)) {
                 return@observeForever
             }
 
-            cachedList = ids
+            lastFetchedIds = ids
 
-            // TODO make batch request
-            // Can't pass vararg here :(
-            // requests?.apply {
-            //  VKBatchRequest(it)
-            // }
-            it.forEach {
+            val requests = it.map {
                 val chatId = it.id
-                val request = VKRequest("messages.getChatUsers",
+                VKRequest("messages.getChatUsers",
                         VKParameters.from("chat_id", chatId, "fields", "photo"))
-                request.executeWithListener(object : VKRequest.VKRequestListener() {
-                    override fun onComplete(response: VKResponse) {
+            }
+            
+            BatchRequestCreator.createFrom(requests.toTypedArray()).executeWithListener(object : VKBatchRequest.VKBatchRequestListener() {
+                override fun onComplete(responses: Array<out VKResponse>?) {
+                    responses?.forEachIndexed { index, response ->
                         executors.diskIO.execute {
                             val json = response.json.toString()
                             val usersResponse = Gson().fromJson<UsersResponse>(json, UsersResponse::class.java)
@@ -69,7 +65,7 @@ constructor(private val appDatabase: AppDatabase,
 
                             val chatUserRelations = usersResponse.getUsersAnswer.map {
                                 val relation = ChatUserRelationEntity()
-                                relation.chatId = chatId
+                                relation.chatId = ids[index]
                                 relation.userId = it.id
                                 return@map relation
                             }
@@ -86,18 +82,14 @@ constructor(private val appDatabase: AppDatabase,
 
                             val collage = CollageCreator().createCollage(userImages)
                             val collageEntity = ChatCollageEntity()
-                            collageEntity.id = chatId
+                            collageEntity.id = ids[index]
                             collageEntity.collage = collage
 
                             chatDao.insertCollage(collageEntity)
                         }
                     }
-
-                    override fun onError(error: VKError?) {
-                        super.onError(error)
-                    }
-                })
-            }
+                }
+            })
         }
     }
 }
